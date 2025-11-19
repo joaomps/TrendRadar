@@ -1697,34 +1697,51 @@ def render_html_content(
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Trending News Analysis</title>
+        <title>TrendRadar - AI, Finance & Technology News</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <style>
-            * { box-sizing: border-box; }
-            body { 
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-                margin: 0; 
-                padding: 16px; 
-                background: #fafafa;
-                color: #333;
-                line-height: 1.5;
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
             }
-            
+
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+                margin: 0;
+                padding: 20px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: #1a202c;
+                line-height: 1.6;
+                -webkit-font-smoothing: antialiased;
+            }
+
             .container {
-                max-width: 600px;
+                max-width: 680px;
                 margin: 0 auto;
                 background: white;
-                border-radius: 12px;
+                border-radius: 16px;
                 overflow: hidden;
-                box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             }
-            
+
             .header {
-                background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+                background: linear-gradient(135deg, #1e3a8a 0%, #5b21b6 50%, #7e22ce 100%);
                 color: white;
-                padding: 32px 24px;
+                padding: 40px 32px;
                 text-align: center;
                 position: relative;
+                border-bottom: 4px solid #fbbf24;
+            }
+
+            .header::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 4px;
+                background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #f59e0b);
             }
             
             .save-buttons {
@@ -1764,174 +1781,243 @@ def render_html_content(
                 cursor: not-allowed;
             }
             
+            .logo {
+                font-size: 48px;
+                margin-bottom: 12px;
+                filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+            }
+
             .header-title {
-                font-size: 24px;
-                font-weight: 700;
+                font-size: 32px;
+                font-weight: 800;
                 margin: 0 0 8px 0;
-                letter-spacing: -0.5px;
+                letter-spacing: -1px;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
             }
 
             .header-subtitle {
-                font-size: 14px;
-                opacity: 0.9;
-                margin: 0 0 20px 0;
-                font-weight: 400;
-            }
-            
-            .header-info {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 16px;
-                font-size: 14px;
+                font-size: 15px;
                 opacity: 0.95;
+                margin: 0 0 28px 0;
+                font-weight: 400;
+                letter-spacing: 0.3px;
             }
-            
-            .info-item {
-                text-align: center;
+
+            .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 12px;
+                margin-top: 24px;
             }
-            
-            .info-label {
+
+            .stat-card {
+                background: rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(10px);
+                border-radius: 12px;
+                padding: 16px 12px;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                transition: transform 0.2s ease, background 0.2s ease;
+            }
+
+            .stat-card:hover {
+                transform: translateY(-2px);
+                background: rgba(255, 255, 255, 0.2);
+            }
+
+            .stat-label {
                 display: block;
-                font-size: 12px;
-                opacity: 0.8;
-                margin-bottom: 4px;
-            }
-            
-            .info-value {
+                font-size: 11px;
+                opacity: 0.85;
+                margin-bottom: 6px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
                 font-weight: 600;
-                font-size: 16px;
+            }
+
+            .stat-value {
+                font-weight: 700;
+                font-size: 20px;
+                line-height: 1;
+                text-shadow: 0 1px 2px rgba(0,0,0,0.1);
             }
             
             .content {
-                padding: 24px;
+                padding: 32px 28px;
+                background: #fafbfc;
             }
-            
+
             .word-group {
-                margin-bottom: 40px;
+                margin-bottom: 36px;
+                background: white;
+                border-radius: 12px;
+                padding: 24px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+                border: 1px solid #e5e7eb;
             }
-            
+
             .word-group:first-child {
                 margin-top: 0;
             }
-            
+
             .word-header {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 margin-bottom: 20px;
-                padding-bottom: 8px;
-                border-bottom: 1px solid #f0f0f0;
+                padding-bottom: 12px;
+                border-bottom: 2px solid #f3f4f6;
             }
-            
+
             .word-info {
                 display: flex;
                 align-items: center;
                 gap: 12px;
             }
-            
+
             .word-name {
-                font-size: 17px;
-                font-weight: 600;
-                color: #1a1a1a;
+                font-size: 20px;
+                font-weight: 700;
+                color: #111827;
+                letter-spacing: -0.3px;
             }
-            
+
             .word-count {
-                color: #666;
-                font-size: 13px;
-                font-weight: 500;
+                background: #f3f4f6;
+                color: #6b7280;
+                font-size: 12px;
+                font-weight: 600;
+                padding: 4px 12px;
+                border-radius: 12px;
             }
-            
-            .word-count.hot { color: #dc2626; font-weight: 600; }
-            .word-count.warm { color: #ea580c; font-weight: 600; }
+
+            .word-count.hot {
+                background: #fee2e2;
+                color: #dc2626;
+                font-weight: 700;
+            }
+
+            .word-count.warm {
+                background: #ffedd5;
+                color: #ea580c;
+                font-weight: 700;
+            }
             
             .word-index {
-                color: #999;
-                font-size: 12px;
+                background: #f9fafb;
+                color: #9ca3af;
+                font-size: 11px;
+                font-weight: 600;
+                padding: 4px 10px;
+                border-radius: 8px;
             }
-            
+
             .news-item {
-                margin-bottom: 20px;
-                padding: 16px 0;
-                border-bottom: 1px solid #f5f5f5;
+                margin-bottom: 16px;
+                padding: 18px;
+                background: #fafbfc;
+                border-radius: 10px;
                 position: relative;
                 display: flex;
-                gap: 12px;
-                align-items: center;
+                gap: 14px;
+                align-items: flex-start;
+                border: 1px solid #f3f4f6;
+                transition: all 0.2s ease;
             }
-            
+
+            .news-item:hover {
+                background: #f9fafb;
+                border-color: #e5e7eb;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            }
+
             .news-item:last-child {
-                border-bottom: none;
+                margin-bottom: 0;
             }
-            
+
+            .news-item.new {
+                border-left: 3px solid #fbbf24;
+                background: #fffbeb;
+            }
+
             .news-item.new::after {
                 content: "NEW";
                 position: absolute;
-                top: 12px;
-                right: 0;
+                top: 16px;
+                right: 16px;
                 background: #fbbf24;
                 color: #92400e;
                 font-size: 9px;
-                font-weight: 700;
-                padding: 3px 6px;
-                border-radius: 4px;
+                font-weight: 800;
+                padding: 4px 8px;
+                border-radius: 6px;
                 letter-spacing: 0.5px;
+                box-shadow: 0 1px 2px rgba(0,0,0,0.1);
             }
             
             .news-number {
-                color: #999;
-                font-size: 13px;
-                font-weight: 600;
-                min-width: 20px;
+                color: #6b7280;
+                font-size: 14px;
+                font-weight: 700;
+                min-width: 28px;
                 text-align: center;
                 flex-shrink: 0;
-                background: #f8f9fa;
-                border-radius: 50%;
-                width: 24px;
-                height: 24px;
+                background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+                border-radius: 8px;
+                width: 28px;
+                height: 28px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                align-self: flex-start;
-                margin-top: 8px;
+                margin-top: 2px;
+                box-shadow: 0 1px 2px rgba(0,0,0,0.05);
             }
-            
+
             .news-content {
                 flex: 1;
                 min-width: 0;
-                padding-right: 40px;
-            }
-            
-            .news-item.new .news-content {
                 padding-right: 50px;
             }
-            
+
+            .news-item.new .news-content {
+                padding-right: 60px;
+            }
+
             .news-header {
                 display: flex;
                 align-items: center;
                 gap: 8px;
-                margin-bottom: 8px;
+                margin-bottom: 10px;
                 flex-wrap: wrap;
             }
-            
+
             .source-name {
-                color: #666;
+                color: #6b7280;
                 font-size: 12px;
-                font-weight: 500;
+                font-weight: 600;
+                background: #f3f4f6;
+                padding: 3px 10px;
+                border-radius: 6px;
             }
-            
+
             .rank-num {
                 color: #fff;
                 background: #6b7280;
                 font-size: 10px;
-                font-weight: 700;
-                padding: 2px 6px;
-                border-radius: 10px;
-                min-width: 18px;
+                font-weight: 800;
+                padding: 3px 8px;
+                border-radius: 6px;
+                min-width: 22px;
                 text-align: center;
+                box-shadow: 0 1px 2px rgba(0,0,0,0.1);
             }
-            
-            .rank-num.top { background: #dc2626; }
-            .rank-num.high { background: #ea580c; }
+
+            .rank-num.top {
+                background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            }
+
+            .rank-num.high {
+                background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+            }
             
             .time-info {
                 color: #999;
@@ -1976,20 +2062,24 @@ def render_html_content(
             
             .news-title {
                 font-size: 15px;
-                line-height: 1.4;
-                color: #1a1a1a;
+                line-height: 1.5;
+                color: #111827;
                 margin: 0;
+                font-weight: 500;
             }
-            
+
             .news-link {
                 color: #2563eb;
                 text-decoration: none;
+                transition: color 0.2s ease;
+                font-weight: 500;
             }
-            
+
             .news-link:hover {
+                color: #1d4ed8;
                 text-decoration: underline;
             }
-            
+
             .news-link:visited {
                 color: #7c3aed;
             }
@@ -2104,47 +2194,62 @@ def render_html_content(
             }
             
             .footer {
-                margin-top: 32px;
-                padding: 20px 24px;
-                background: #f8f9fa;
-                border-top: 1px solid #e5e7eb;
+                background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+                color: white;
+                padding: 28px 32px;
                 text-align: center;
+                border-top: 3px solid #fbbf24;
             }
-            
+
             .footer-content {
                 font-size: 13px;
-                color: #6b7280;
-                line-height: 1.6;
+                line-height: 1.8;
+                opacity: 0.9;
             }
-            
+
             .footer-link {
-                color: #4f46e5;
+                color: #fbbf24;
                 text-decoration: none;
-                font-weight: 500;
-                transition: color 0.2s ease;
+                font-weight: 600;
+                transition: all 0.2s ease;
             }
-            
+
             .footer-link:hover {
-                color: #7c3aed;
+                color: #fcd34d;
                 text-decoration: underline;
             }
-            
+
             .project-name {
-                font-weight: 600;
-                color: #374151;
+                font-weight: 700;
+                color: white;
+                font-size: 14px;
+            }
+
+            .footer-tagline {
+                margin-top: 8px;
+                font-size: 12px;
+                opacity: 0.7;
             }
             
-            @media (max-width: 480px) {
+            @media (max-width: 680px) {
                 body { padding: 12px; }
-                .header { padding: 24px 20px; }
-                .content { padding: 20px; }
-                .footer { padding: 16px 20px; }
-                .header-info { grid-template-columns: 1fr; gap: 12px; }
+                .container { border-radius: 12px; }
+                .header { padding: 32px 24px; }
+                .content { padding: 24px 20px; }
+                .footer { padding: 24px 20px; }
+                .logo { font-size: 40px; }
+                .header-title { font-size: 26px; }
+                .header-subtitle { font-size: 14px; }
+                .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+                .stat-card { padding: 14px 10px; }
+                .stat-value { font-size: 18px; }
+                .word-group { padding: 20px; margin-bottom: 24px; }
+                .word-name { font-size: 18px; }
+                .news-item { padding: 14px; gap: 10px; }
                 .news-header { gap: 6px; }
                 .news-content { padding-right: 45px; }
-                .news-item { gap: 8px; }
+                .news-number { width: 24px; height: 24px; font-size: 12px; }
                 .new-item { gap: 8px; }
-                .news-number { width: 20px; height: 20px; font-size: 12px; }
                 .save-buttons {
                     position: static;
                     margin-bottom: 16px;
@@ -2154,9 +2259,7 @@ def render_html_content(
                     flex-direction: column;
                     width: 100%;
                 }
-                .save-btn {
-                    width: 100%;
-                }
+                .save-btn { width: 100%; }
             }
         </style>
     </head>
@@ -2167,51 +2270,52 @@ def render_html_content(
                     <button class="save-btn" onclick="saveAsImage()">Save as Image</button>
                     <button class="save-btn" onclick="saveAsMultipleImages()">Save in Segments</button>
                 </div>
-                <div class="header-title">📊 TrendRadar</div>
+                <div class="logo">📊</div>
+                <div class="header-title">TrendRadar</div>
                 <div class="header-subtitle">AI, Finance & Technology News Analysis</div>
-                <div class="header-info">
-                    <div class="info-item">
-                        <span class="info-label">Report Type</span>
-                        <span class="info-value">"""
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-label">Mode</span>
+                        <span class="stat-value">"""
 
     # Process report type display
     if is_daily_summary:
         if mode == "current":
-            html += "Current Ranking"
+            html += "Current"
         elif mode == "incremental":
-            html += "Incremental Mode"
+            html += "Delta"
         else:
-            html += "Daily Summary"
+            html += "Daily"
     else:
-        html += "Realtime Analysis"
+        html += "Live"
 
     html += """</span>
                     </div>
-                    <div class="info-item">
-                        <span class="info-label">Total News</span>
-                        <span class="info-value">"""
+                    <div class="stat-card">
+                        <span class="stat-label">Total</span>
+                        <span class="stat-value">"""
 
-    html += f"{total_titles} items"
+    html += str(total_titles)
 
     # Calculate filtered trending news count
     hot_news_count = sum(len(stat["titles"]) for stat in report_data["stats"])
 
     html += """</span>
                     </div>
-                    <div class="info-item">
-                        <span class="info-label">Trending News</span>
-                        <span class="info-value">"""
+                    <div class="stat-card">
+                        <span class="stat-label">Trending</span>
+                        <span class="stat-value">"""
 
-    html += f"{hot_news_count} items"
+    html += str(hot_news_count)
 
     html += """</span>
                     </div>
-                    <div class="info-item">
-                        <span class="info-label">Generated At</span>
-                        <span class="info-value">"""
+                    <div class="stat-card">
+                        <span class="stat-label">Time</span>
+                        <span class="stat-value">"""
 
     now = get_beijing_time()
-    html += now.strftime("%m-%d %H:%M")
+    html += now.strftime("%H:%M")
 
     html += """</span>
                     </div>
