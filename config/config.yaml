@@ -30,7 +30,7 @@ api:
 
 # Push Mode Selection
 report:
-  mode: "daily" # Options: "daily"|"incremental"|"current"
+  mode: "incremental" # Options: "daily"|"incremental"|"current"
   rank_threshold: 5 # Ranking highlight threshold
 
 notification:
