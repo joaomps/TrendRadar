@@ -4,10 +4,27 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-TrendRadar is a news aggregation and trend analysis tool that collects hot topics from 11+ mainstream platforms (Zhihu, Weibo, Douyin, Baidu, Bilibili, etc.) and provides intelligent filtering, analysis, and multi-channel notifications. The project consists of two main components:
+TrendRadar is a news aggregation and trend analysis tool that collects hot topics from multiple platforms worldwide and provides intelligent filtering, analysis, and multi-channel notifications. The project consists of two main components:
 
 1. **News Crawler & Notification System** ([main.py](main.py) - 4,554 lines)
 2. **AI Analysis MCP Server** ([mcp_server/](mcp_server/) - Model Context Protocol server for AI assistants)
+
+### English Migration Status
+
+**Migration Progress**: ~80% complete
+- **Currently Active**: 6 English sources (Reddit + Hacker News) - all free, no API key required
+- **Ready for Activation**: News API integration (100 requests/day free tier) - requires API key
+- **Backward Compatible**: Supports both old Chinese date format (YYYY年MM月DD日) and new English format (YYYY-MM-DD)
+
+**Available English Platforms**:
+- **Reddit** (Free): r/worldnews, r/news, r/technology, r/programming, r/science
+- **Hacker News** (Free): Top tech stories
+- **News API** (API key required): 80,000+ sources including TechCrunch, BBC, CNN, Reuters, Bloomberg
+
+**Documentation**:
+- [ENGLISH_SOURCES_INTEGRATION.md](ENGLISH_SOURCES_INTEGRATION.md) - Complete integration guide
+- [GITHUB_SECRETS_SETUP.md](GITHUB_SECRETS_SETUP.md) - Secure API key configuration
+- [english_platforms_adapter.py](english_platforms_adapter.py) - Platform adapter implementation
 
 ## Essential Commands
 
@@ -61,14 +78,18 @@ docker run -d \
 
 ### Data Flow
 ```
-News Sources (11+ platforms via newsnow API)
-    ↓ DataFetcher (with retry logic)
+News Sources (Multi-platform support)
+├── Reddit (Free) ──────────┐
+├── Hacker News (Free) ─────┤
+├── News API (API key) ─────┤──> EnglishPlatformsAdapter
+└── Chinese platforms ──────┘──> NewNow API
+    ↓ DataFetcher (with retry logic & multi-API routing)
 Raw JSON Data
     ↓ NewsAnalyzer (parse & save)
 TXT Files (output/YYYY-MM-DD/txt/HH-MM.txt)
     ↓ Notification System
-[Webhooks: Feishu/DingTalk/WeWork/Telegram/Email]
-    ↓ ParserService (for MCP)
+[Webhooks: Feishu/DingTalk/WeWork/Telegram/Email/Ntfy]
+    ↓ ParserService (for MCP - supports both date formats)
 AI Analysis Tools (13 tools via MCP server)
 ```
 
@@ -76,8 +97,19 @@ AI Analysis Tools (13 tools via MCP server)
 
 **News Crawler ([main.py](main.py)):**
 - `PushRecordManager`: Tracks daily push history (7-day retention)
-- `DataFetcher`: Fetches data from newsnow API with retries (2 attempts, 3-5s backoff)
+- `DataFetcher`: Multi-API data fetcher with retry logic (2 attempts, 3-5s backoff)
+  - Routes requests based on platform API type (reddit/hackernews/newsapi/newsnow)
+  - Uses `EnglishPlatformsAdapter` for Reddit, Hacker News, and News API
+  - Falls back to NewNow API for Chinese platforms
 - `NewsAnalyzer`: Processes, filters, weights, and generates reports
+
+**English Platforms Adapter ([english_platforms_adapter.py](english_platforms_adapter.py)):**
+- `EnglishPlatformsAdapter`: Unified adapter for English news platforms
+  - `fetch_from_reddit()`: Fetches from Reddit subreddits (no auth required)
+  - `fetch_from_hackernews()`: Fetches from Hacker News Firebase API (no auth required)
+  - `fetch_from_newsapi()`: Fetches from News API (requires API key)
+  - Supports proxy configuration
+  - Returns data in standardized format compatible with NewsAnalyzer
 
 **MCP Server ([mcp_server/](mcp_server/)):**
 - **Tools Layer** ([tools/](mcp_server/tools/)): 13 async tools exposed via FastMCP decorators
@@ -94,6 +126,78 @@ AI Analysis Tools (13 tools via MCP server)
 
 ### Singleton Pattern
 MCP tools use `_get_tools()` singleton to ensure single instance across all tool calls.
+
+## Multi-Platform Support
+
+### Supported API Types
+
+TrendRadar supports 4 different API types, configured via the `api` field in platform configuration:
+
+1. **reddit** - Reddit API (Free, no authentication)
+   - Fetches hot posts from specified subreddits
+   - Returns top 50 posts with scores and comment counts
+   - Example: `r/worldnews`, `r/technology`, `r/programming`
+
+2. **hackernews** - Hacker News Firebase API (Free, no authentication)
+   - Fetches top stories from Hacker News
+   - Returns top 50 stories with scores
+   - Single configuration (no parameters needed)
+
+3. **newsapi** - News API (Requires API key, 100 requests/day free tier)
+   - Access to 80,000+ news sources worldwide
+   - Supports specific source IDs (techcrunch, bbc-news, cnn, etc.)
+   - Returns top 100 headlines per source
+
+4. **newsnow** - NewNow API (Free, legacy Chinese platforms)
+   - Original API for Chinese platforms
+   - Used as fallback for non-English sources
+
+### Platform Configuration Format
+
+Each platform in `config/config.yaml` requires these fields:
+
+```yaml
+platforms:
+  # Reddit configuration
+  - id: "reddit-worldnews"      # Unique identifier
+    name: "Reddit World News"   # Display name
+    api: "reddit"               # API type
+    subreddit: "worldnews"      # Reddit-specific: subreddit name
+
+  # Hacker News configuration
+  - id: "hackernews"
+    name: "Hacker News"
+    api: "hackernews"           # No additional parameters needed
+
+  # News API configuration
+  - id: "techcrunch"
+    name: "TechCrunch"
+    api: "newsapi"
+    source_id: "techcrunch"     # NewsAPI-specific: source identifier
+
+  # Chinese platform (legacy)
+  - id: "zhihu"
+    name: "Zhihu"
+    api: "newsnow"              # Or omit 'api' field (defaults to newsnow)
+```
+
+### Adding New Platforms
+
+**To add a Reddit subreddit**:
+```yaml
+- id: "reddit-artificial"
+  name: "Reddit AI"
+  api: "reddit"
+  subreddit: "artificial"       # r/artificial
+```
+
+**To add a News API source**:
+```yaml
+- id: "wired"
+  name: "Wired"
+  api: "newsapi"
+  source_id: "wired"            # Get source IDs from https://newsapi.org/sources
+```
 
 ## Key Patterns and Conventions
 
@@ -147,9 +251,15 @@ Parser uses regex to extract platform names, titles, and URLs.
 
 ### Beijing Time Convention
 All timestamps use `Asia/Shanghai` timezone via `pytz`. Critical for:
-- File naming (`output/` directories)
+- File naming (`output/` directories) - Format: `YYYY-MM-DD/txt/HH-MM.txt`
 - Push window time ranges
 - MCP date parsing (`DateUtils.parse_date_input()`)
+
+**Date Format Migration**:
+- **Old format** (deprecated, backward compatible): `YYYY年MM月DD日` and `HH时MM分.txt`
+- **New format** (current): `YYYY-MM-DD` and `HH-MM.txt`
+- ParserService automatically detects and supports both formats
+- Use [migrate_output_dates.py](migrate_output_dates.py) to convert old data
 
 ### Token Optimization in MCP
 MCP tools default to `include_url=False` to save AI tokens. Set to `True` when URLs needed:
@@ -162,19 +272,95 @@ await tools.get_latest_news(limit=20, include_url=True)
 ### Primary Config: [config/config.yaml](config/config.yaml)
 Key sections:
 - `app`: Version checking
+- `api`: API keys (newsapi_key)
 - `crawler`: Request intervals, proxy settings
 - `report`: Mode (daily/incremental/current), rank threshold
 - `notification`: Enable/disable, push window settings, webhooks
 - `weight`: Algorithm weights (rank/frequency/hotness)
-- `platforms`: List of 11+ news sources with IDs
+- `platforms`: List of news sources with API type configuration
 
-### Environment Variable Override
-Environment variables take priority over `config.yaml`:
-- Core: `ENABLE_CRAWLER`, `ENABLE_NOTIFICATION`, `REPORT_MODE`
-- Webhooks: `FEISHU_WEBHOOK_URL`, `DINGTALK_WEBHOOK_URL`, `TELEGRAM_BOT_TOKEN`, etc.
-- Push window: `PUSH_WINDOW_ENABLED`, `PUSH_WINDOW_START`, `PUSH_WINDOW_END`
+**Example configuration**:
+```yaml
+api:
+  newsapi_key: ""  # Empty if using GitHub Secrets
 
-Check [docker/entrypoint.sh](docker/entrypoint.sh) for complete list of supported env vars.
+platforms:
+  - id: "reddit-worldnews"
+    name: "Reddit World News"
+    api: "reddit"
+    subreddit: "worldnews"
+
+  - id: "techcrunch"
+    name: "TechCrunch"
+    api: "newsapi"
+    source_id: "techcrunch"
+```
+
+### Environment Variable Override (Priority System)
+
+**Environment variables take HIGHEST priority** over `config.yaml`. This enables secure deployment with GitHub Secrets.
+
+**Configuration Priority Order**:
+1. **Environment Variables** (GitHub Secrets in Actions) ← Highest Priority
+2. **config.yaml** values ← Fallback
+
+**Supported Environment Variables**:
+
+**API Keys**:
+- `NEWSAPI_KEY` - News API key (overrides `api.newsapi_key`)
+
+**Core Settings**:
+- `ENABLE_CRAWLER` - Enable/disable crawler
+- `ENABLE_NOTIFICATION` - Enable/disable notifications
+- `REPORT_MODE` - Push mode (daily/incremental/current)
+
+**Notification Webhooks**:
+- `FEISHU_WEBHOOK_URL` - Feishu bot webhook
+- `DINGTALK_WEBHOOK_URL` - DingTalk bot webhook
+- `WEWORK_WEBHOOK_URL` - WeCom bot webhook
+- `TELEGRAM_BOT_TOKEN` - Telegram bot token
+- `TELEGRAM_CHAT_ID` - Telegram chat ID
+- `EMAIL_FROM`, `EMAIL_PASSWORD`, `EMAIL_TO` - Email configuration
+- `EMAIL_SMTP_SERVER`, `EMAIL_SMTP_PORT` - SMTP settings
+- `NTFY_SERVER_URL`, `NTFY_TOPIC`, `NTFY_TOKEN` - Ntfy configuration
+
+**Push Window**:
+- `PUSH_WINDOW_ENABLED` - Enable push time window
+- `PUSH_WINDOW_START` - Window start time (HH:MM)
+- `PUSH_WINDOW_END` - Window end time (HH:MM)
+
+Check [docker/entrypoint.sh](docker/entrypoint.sh) for complete list.
+
+## GitHub Secrets Configuration
+
+### Quick Setup Guide
+
+**For News API (Optional)**:
+1. Get free API key at https://newsapi.org (100 requests/day)
+2. Go to GitHub repository → Settings → Secrets and variables → Actions
+3. Click "New repository secret"
+4. Name: `NEWSAPI_KEY`, Value: Your API key
+5. Click "Add secret"
+
+**GitHub Actions Integration**:
+The workflow file ([.github/workflows/crawler.yml](.github/workflows/crawler.yml)) automatically passes secrets as environment variables:
+
+```yaml
+- name: Run crawler
+  env:
+    NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+    FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
+    # ... other secrets
+  run: python main.py
+```
+
+**Security Best Practices**:
+- ✅ Store ALL sensitive data in GitHub Secrets (not in config.yaml)
+- ✅ Keep `config.yaml` webhook fields empty in public repos
+- ✅ Use environment variables for production deployment
+- ❌ NEVER commit API keys or webhooks to public repositories
+
+See [GITHUB_SECRETS_SETUP.md](GITHUB_SECRETS_SETUP.md) for detailed instructions.
 
 ## MCP Server Details
 
@@ -220,7 +406,35 @@ ToolResult(
 ### Testing with Historical Data
 Project includes test data in `output/` for Nov 1-15, 2025. Use for MCP server testing without running crawler.
 
+### Performance Considerations
+
+**Request Timing by Platform**:
+- **Reddit**: ~2-3 seconds per subreddit
+- **Hacker News**: ~15-20 seconds (fetches individual stories with rate limiting)
+- **News API**: ~1-2 seconds per source
+- **NewNow API**: ~1-2 seconds per platform
+
+**Rate Limits**:
+- **Reddit**: Unlimited (respectful use recommended)
+- **Hacker News**: Unlimited (built-in rate limiting in adapter)
+- **News API Free Tier**: 100 requests/day
+- **NewNow API**: Unknown (appears unlimited)
+
+**Optimization Tips**:
+- For faster crawls: Use only Reddit (fastest free source)
+- For comprehensive news: Combine Reddit + Hacker News + News API
+- For tech focus: Hacker News + Reddit r/technology + r/programming
+- For global news: Reddit r/worldnews + r/news + News API (BBC, Reuters)
+
 ### Version Info
 - **Main Version**: Check [main.py:34](main.py#L34) for `VERSION`
 - **MCP Version**: Check [mcp_server/server.py:27](mcp_server/server.py#L27) for `MCP_VERSION`
 - **Python Requirement**: >=3.10
+
+## Additional Documentation
+
+- **[ENGLISH_SOURCES_INTEGRATION.md](ENGLISH_SOURCES_INTEGRATION.md)** - Complete guide to English platform integration, configuration examples, testing procedures
+- **[GITHUB_SECRETS_SETUP.md](GITHUB_SECRETS_SETUP.md)** - Step-by-step guide for configuring API keys and webhooks via GitHub Secrets
+- **[english_platforms_adapter.py](english_platforms_adapter.py)** - Source code for English platforms adapter with inline documentation
+- **[migrate_output_dates.py](migrate_output_dates.py)** - Utility script for migrating old Chinese date format to new English format
+- **[README.md](README.md)** - Main project README with setup instructions and feature overview
