@@ -48,6 +48,9 @@ jobs:
 
       - name: Run crawler
         env:
+          # News API (for English sources)
+          NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+          # Notification webhooks
           FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}

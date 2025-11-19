@@ -1,7 +1,7 @@
 """
-文件解析服务
+File Parser Service
 
-提供txt格式新闻数据和YAML配置文件的解析功能。
+Provides parsing functionality for TXT format news data and YAML configuration files.
 """
 
 import re
@@ -16,23 +16,23 @@ from .cache_service import get_cache
 
 
 class ParserService:
-    """文件解析服务类"""
+    """File parser service class"""
 
     def __init__(self, project_root: str = None):
         """
-        初始化解析服务
+        Initialize parser service
 
         Args:
-            project_root: 项目根目录，默认为当前目录的父目录
+            project_root: Project root directory, defaults to parent of current directory
         """
         if project_root is None:
-            # 获取当前文件所在目录的父目录的父目录
+            # Get parent's parent directory of current file
             current_file = Path(__file__)
             self.project_root = current_file.parent.parent.parent
         else:
             self.project_root = Path(project_root)
 
-        # 初始化缓存服务
+        # Initialize cache service
         self.cache = get_cache()
 
     @staticmethod
@@ -151,11 +151,46 @@ class ParserService:
             date: 日期对象，默认为今天
 
         Returns:
-            文件夹名称，格式: YYYY年MM月DD日
+            文件夹名称，格式: YYYY-MM-DD
         """
         if date is None:
             date = datetime.now()
-        return date.strftime("%Y年%m月%d日")
+        return date.strftime("%Y-%m-%d")
+
+    def _find_date_directory(self, date: datetime = None) -> Path:
+        """
+        Find date directory, supports both new and old formats (backward compatible)
+
+        Search order:
+        1. New format: YYYY-MM-DD
+        2. Old format (deprecated): YYYY年MM月DD日
+
+        Args:
+            date: Date object, defaults to today
+
+        Returns:
+            Found directory path
+
+        Raises:
+            FileNotFoundError: If neither new nor old format is found
+        """
+        if date is None:
+            date = datetime.now()
+
+        # Try new format first
+        new_format = date.strftime("%Y-%m-%d")
+        new_path = self.project_root / "output" / new_format
+        if new_path.exists():
+            return new_path
+
+        # Try old format for backward compatibility
+        old_format = date.strftime("%Y年%m月%d日")
+        old_path = self.project_root / "output" / old_format
+        if old_path.exists():
+            return old_path
+
+        # Neither found, return new format path (will be used for creation or error message)
+        return new_path
 
     def read_all_titles_for_date(
         self,
@@ -194,10 +229,13 @@ class ParserService:
             return cached
 
         # 缓存未命中，读取文件
-        date_folder = self.get_date_folder_name(date)
-        txt_dir = self.project_root / "output" / date_folder / "txt"
+        # 使用向后兼容的目录查找方法
+        date_dir = self._find_date_directory(date)
+        txt_dir = date_dir / "txt"
 
         if not txt_dir.exists():
+            # 如果目录不存在，使用新格式显示错误
+            date_folder = self.get_date_folder_name(date)
             raise DataNotFoundError(
                 f"未找到 {date_folder} 的数据目录",
                 suggestion="请先运行爬虫或检查日期是否正确"

@@ -1,113 +1,155 @@
-胖东来
-于东来
+# Pang Donglai (Retail chain)
+Pang Donglai
+Yu Donglai
 
+# DeepSeek (AI company)
 DeepSeek
-梁文锋
+Liang Wenfeng
 
-华为
-鸿蒙
+# Huawei
+Huawei
 HarmonyOS
-任正非
+Ren Zhengfei
 
-比亚迪
-王传福
+# BYD (Electric vehicle company)
+BYD
+Wang Chuanfu
 
-大疆
+# DJI (Drone company)
 DJI
 
-宇树
-王兴兴
+# Unitree (Robotics)
+Unitree
+Wang Xingxing
 
-智元
-灵犀
-稚晖君
-彭志辉
+# Zhiyuan (Robotics/AI)
+Zhiyuan
+Lingxi
+Zhihui Jun
+Peng Zhihui
 
-黑神话
-冯骥
+# Black Myth (Game)
+Black Myth
+Wukong
+Feng Ji
 
-影之刃零
-梁其伟
+# Infinity Nikki
+Infinity Nikki
+Liang Qiwei
 
-哪吒
-饺子
-杨宇
-!车
-!餐
+# Ne Zha (Animation)
+Ne Zha
+Jiaozi
+Yang Yu
+!car
+!restaurant
 
-三体
-流浪地球
-刘慈欣
-郭帆
+# Sci-Fi Content
+Three-Body Problem
+The Wandering Earth
+Liu Cixin
+Guo Fan
 
-申奥
+# Shen Ao (Director)
+Shen Ao
 
-京东
-刘强东
+# JD.com
+JD.com
+Liu Qiangdong
 
-字节
-bytedance
-张一鸣
+# ByteDance
+ByteDance
+Zhang Yiming
 
-特斯拉
-马斯克
+# Tesla
+Tesla
+Elon Musk
 
-微软
+# Microsoft
 Microsoft
 
-英伟达
+# NVIDIA
 NVIDIA
-黄仁勋
+Jensen Huang
 
+# AMD
 AMD
 
-谷歌
-google
-gemini
-deepmind
+# Google
+Google
+Gemini
+DeepMind
 
-chatgpt
-openai
-sora
+# OpenAI
+ChatGPT
+OpenAI
+Sora
 
-claude
+# Anthropic
+Claude
 Anthropic
 
-iphone
-ipad
-mac
-ios
+# Apple Products
+iPhone
+iPad
+Mac
+iOS
 
-ai
+# AI & Technology
+AI
 !gai
-人工智能
+Artificial Intelligence
 
-自动驾驶
+# Autonomous Driving
+Autonomous Driving
+Self-Driving
 
-机器人
+# Robotics
+Robot
+Robotics
 
-国产
-中国
+# National/Regional
+China
+Chinese
+Domestic
 
-美国
-日本
-韩国
+# Countries
+USA
+United States
+Japan
+Korea
+South Korea
 
-芯片
-光刻机
+# Semiconductors
+Chip
+Semiconductor
+Lithography
+ASML
 
-科技
+# Technology
+Technology
+Tech
+Innovation
 
-核能
+# Energy
+Nuclear
+Nuclear Energy
 
-水电站
-雅鲁藏布江
+# Infrastructure
+Hydropower
+Dam
+Yarlung Tsangpo River
 
-新质生产力
+# Economic Terms
+New Quality Productivity
+Advanced Manufacturing
 
-月球
-登月
-火星
-宇宙
-飞船
-航空
+# Space & Aerospace
+Moon
+Lunar
+Mars
+Space
+Universe
+Spacecraft
+Aerospace
+Aviation
