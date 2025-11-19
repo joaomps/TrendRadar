@@ -3966,9 +3966,9 @@ def send_to_email(
         else:
             msg["To"] = ", ".join(recipients)
 
-        # 设置邮件主题
-        now = get_beijing_time()
-        subject = f"TrendRadar Hot Topics Analysis Report - {report_type} - {now.strftime('%m-%d %H:%M')}"
+        # Set email subject with UTC time
+        now_utc = datetime.now(pytz.UTC)
+        subject = f"TrendRadar Hot Topics Analysis Report - {report_type} - {now_utc.strftime('%m-%d %H:%M')} UTC"
         msg["Subject"] = Header(subject, "utf-8")
 
         # Set other standard headers
@@ -4016,7 +4016,7 @@ Please use an HTML-enabled email client to view the complete report.
             server.send_message(msg)
             server.quit()
 
-            print(f"邮件发送Success [{report_type}] -> {to_email}")
+            print(f"Email sent successfully [{report_type}] -> {to_email}")
             return True
 
         except smtplib.SMTPServerDisconnected:
@@ -4205,26 +4205,26 @@ class NewsAnalyzer:
     # Mode strategy definitions
     MODE_STRATEGIES = {
         "incremental": {
-            "mode_name": "增量模式",
-            "description": "增量模式（只关注New新闻，无New时不推送）",
-            "realtime_report_type": "实时增量",
+            "mode_name": "Incremental Mode",
+            "description": "Incremental Mode (Only new matching news, no push if no new items)",
+            "realtime_report_type": "Incremental Update",
             "summary_report_type": "Daily Summary",
             "should_send_realtime": True,
             "should_generate_summary": True,
             "summary_mode": "daily",
         },
         "current": {
-            "mode_name": "当前榜单模式",
-            "description": "当前榜单模式（当前榜单匹配新闻 + New新闻区域 + 按时推送）",
-            "realtime_report_type": "实时当前榜单",
-            "summary_report_type": "当前榜单汇总",
+            "mode_name": "Current Rankings Mode",
+            "description": "Current Rankings Mode (Current rankings + new items section + scheduled push)",
+            "realtime_report_type": "Current Rankings",
+            "summary_report_type": "Rankings Summary",
             "should_send_realtime": True,
             "should_generate_summary": True,
             "summary_mode": "current",
         },
         "daily": {
-            "mode_name": "Daily Summary模式",
-            "description": "Daily Summary模式（All匹配新闻 + New新闻区域 + 按时推送）",
+            "mode_name": "Daily Summary Mode",
+            "description": "Daily Summary Mode (All matching news + new items section + scheduled push)",
             "realtime_report_type": "",
             "summary_report_type": "Daily Summary",
             "should_send_realtime": False,
@@ -4275,7 +4275,7 @@ class NewsAnalyzer:
         elif not self.is_github_actions and not CONFIG["USE_PROXY"]:
             print("本地环境，未启用代理")
         else:
-            print("GitHub Actions环境，不使用代理")
+            print("GitHub Actions environment, proxy disabled")
 
     def _check_version_update(self) -> None:
         """Check for version updates"""
@@ -4341,7 +4341,7 @@ class NewsAnalyzer:
             for platform in CONFIG["PLATFORMS"]:
                 current_platform_ids.append(platform["id"])
 
-            print(f"当前监控平台: {current_platform_ids}")
+            print(f"Current monitored platforms: {current_platform_ids}")
 
             all_results, id_to_name, title_info = read_all_today_titles(
                 current_platform_ids
@@ -4352,7 +4352,7 @@ class NewsAnalyzer:
                 return None
 
             total_titles = sum(len(titles) for titles in all_results.values())
-            print(f"读取到 {total_titles} 个Title（已按当前监控平台过滤）")
+            print(f"Read {total_titles} news items (filtered by current monitored platforms)")
 
             new_titles = detect_latest_new_titles(current_platform_ids)
             word_groups, filter_words = load_frequency_words()
@@ -4555,7 +4555,7 @@ class NewsAnalyzer:
     def _initialize_and_check_config(self) -> None:
         """General initialization and configuration check"""
         now = get_beijing_time()
-        print(f"当前北京Time: {now.strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"Current UTC time: {datetime.now(pytz.UTC).strftime('%Y-%m-%d %H:%M:%S')} UTC")
 
         if not CONFIG["ENABLE_CRAWLER"]:
             print("爬虫功能已禁用（ENABLE_CRAWLER=False），程序退出")
@@ -4563,15 +4563,15 @@ class NewsAnalyzer:
 
         has_notification = self._has_notification_configured()
         if not CONFIG["ENABLE_NOTIFICATION"]:
-            print("通知功能已禁用（ENABLE_NOTIFICATION=False），将只进行数据抓取")
+            print("Notification disabled (ENABLE_NOTIFICATION=False), will only crawl data")
         elif not has_notification:
-            print("未配置任何通知渠道，将只进行数据抓取，不发送通知")
+            print("No notification channels configured, will only crawl data without sending notifications")
         else:
-            print("通知功能已启用，将发送通知")
+            print("Notification enabled, will send notifications")
 
         mode_strategy = self._get_mode_strategy()
-        print(f"报告模式: {self.report_mode}")
-        print(f"运行模式: {mode_strategy['description']}")
+        print(f"Report mode: {self.report_mode}")
+        print(f"Operation mode: {mode_strategy['description']}")
 
     def _crawl_data(self) -> Tuple[Dict, Dict, List]:
         """Execute data crawling"""
@@ -4588,7 +4588,7 @@ class NewsAnalyzer:
         )
 
         title_file = save_titles_to_file(results, id_to_name, failed_ids)
-        print(f"Title已保存到: {title_file}")
+        print(f"News saved to: {title_file}")
 
         return results, id_to_name, failed_ids
 
@@ -4634,7 +4634,7 @@ class NewsAnalyzer:
 
                 combined_id_to_name = {**historical_id_to_name, **id_to_name}
 
-                print(f"HTML报告已生成: {html_file}")
+                print(f"HTML report generated: {html_file}")
 
                 # 发送实时通知（使用完整历史数据的统计结果）
                 summary_html = None
