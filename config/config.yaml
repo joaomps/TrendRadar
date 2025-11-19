@@ -119,59 +119,121 @@ platforms:
     api: "reddit"
     subreddit: "science"
 
+  # AI & Machine Learning
+  - id: "reddit-artificial"
+    name: "Reddit AI"
+    api: "reddit"
+    subreddit: "artificial"
+
+  - id: "reddit-machinelearning"
+    name: "Reddit Machine Learning"
+    api: "reddit"
+    subreddit: "MachineLearning"
+
+  - id: "reddit-localllama"
+    name: "Reddit Local LLMs"
+    api: "reddit"
+    subreddit: "LocalLLaMA"
+
+  # Finance & Investing
+  - id: "reddit-finance"
+    name: "Reddit Finance"
+    api: "reddit"
+    subreddit: "finance"
+
+  - id: "reddit-investing"
+    name: "Reddit Investing"
+    api: "reddit"
+    subreddit: "investing"
+
+  - id: "reddit-stocks"
+    name: "Reddit Stocks"
+    api: "reddit"
+    subreddit: "stocks"
+
+  - id: "reddit-wallstreetbets"
+    name: "Reddit WallStreetBets"
+    api: "reddit"
+    subreddit: "wallstreetbets"
+
   # Hacker News - Tech Trends
   - id: "hackernews"
     name: "Hacker News"
     api: "hackernews"
 
-  # ===== NEWS API SOURCES (Requires API key) =====
-  # Uncomment after adding your News API key above
-  # Get free key at: https://newsapi.org
+  # ===== NEWS API SOURCES (Active - requires NEWSAPI_KEY in GitHub Secrets) =====
+  # Get free key at: https://newsapi.org (100 requests/day free)
 
-  # Technology News
-  # - id: "techcrunch"
-  #   name: "TechCrunch"
+  # Technology News - AI & Innovation
+  - id: "techcrunch"
+    name: "TechCrunch"
+    api: "newsapi"
+    source_id: "techcrunch"
+
+  - id: "the-verge"
+    name: "The Verge"
+    api: "newsapi"
+    source_id: "the-verge"
+
+  - id: "wired"
+    name: "Wired"
+    api: "newsapi"
+    source_id: "wired"
+
+  - id: "ars-technica"
+    name: "Ars Technica"
+    api: "newsapi"
+    source_id: "ars-technica"
+
+  - id: "the-next-web"
+    name: "The Next Web"
+    api: "newsapi"
+    source_id: "the-next-web"
+
+  # Business & Finance News
+  - id: "bloomberg"
+    name: "Bloomberg"
+    api: "newsapi"
+    source_id: "bloomberg"
+
+  - id: "business-insider"
+    name: "Business Insider"
+    api: "newsapi"
+    source_id: "business-insider"
+
+  - id: "fortune"
+    name: "Fortune"
+    api: "newsapi"
+    source_id: "fortune"
+
+  - id: "the-wall-street-journal"
+    name: "Wall Street Journal"
+    api: "newsapi"
+    source_id: "the-wall-street-journal"
+
+  # General News (High Quality)
+  - id: "reuters"
+    name: "Reuters"
+    api: "newsapi"
+    source_id: "reuters"
+
+  # Additional Sources (Commented - uncomment if needed, watch your 100 req/day limit)
+  # - id: "engadget"
+  #   name: "Engadget"
   #   api: "newsapi"
-  #   source_id: "techcrunch"
+  #   source_id: "engadget"
 
-  # - id: "the-verge"
-  #   name: "The Verge"
+  # - id: "financial-times"
+  #   name: "Financial Times"
   #   api: "newsapi"
-  #   source_id: "the-verge"
+  #   source_id: "financial-times"
 
-  # - id: "wired"
-  #   name: "Wired"
-  #   api: "newsapi"
-  #   source_id: "wired"
-
-  # - id: "ars-technica"
-  #   name: "Ars Technica"
-  #   api: "newsapi"
-  #   source_id: "ars-technica"
-
-  # General News
   # - id: "bbc-news"
   #   name: "BBC News"
   #   api: "newsapi"
   #   source_id: "bbc-news"
 
-  # - id: "cnn"
-  #   name: "CNN"
+  # - id: "associated-press"
+  #   name: "Associated Press"
   #   api: "newsapi"
-  #   source_id: "cnn"
-
-  # - id: "reuters"
-  #   name: "Reuters"
-  #   api: "newsapi"
-  #   source_id: "reuters"
-
-  # Business News
-  # - id: "bloomberg"
-  #   name: "Bloomberg"
-  #   api: "newsapi"
-  #   source_id: "bloomberg"
-
-  # - id: "business-insider"
-  #   name: "Business Insider"
-  #   api: "newsapi"
-  #   source_id: "business-insider"
+  #   source_id: "associated-press"

@@ -99,14 +99,43 @@ iOS
 AI
 !gai
 Artificial Intelligence
+Machine Learning
+ML
+Deep Learning
+Neural Network
+LLM
+Large Language Model
+GPT
+Transformer
+Generative AI
+
+# AI Companies & Models
+OpenAI
+Anthropic
+Claude
+ChatGPT
+GPT-4
+GPT-5
+Gemini
+DeepMind
+Llama
+Mistral
+Stable Diffusion
+Midjourney
 
 # Autonomous Driving
 Autonomous Driving
 Self-Driving
+Waymo
+Cruise
+FSD
+Full Self-Driving
 
 # Robotics
 Robot
 Robotics
+Humanoid
+Boston Dynamics
 
 # National/Regional
 China
@@ -120,16 +149,59 @@ Japan
 Korea
 South Korea
 
-# Semiconductors
+# Semiconductors & Hardware
 Chip
 Semiconductor
 Lithography
 ASML
+TSMC
+Intel
+Qualcomm
+ARM
+GPU
+TPU
+Quantum Computing
+
+# Finance & Markets
+Stock Market
+Trading
+Investment
+Venture Capital
+VC
+IPO
+Crypto
+Cryptocurrency
+Bitcoin
+Ethereum
+Blockchain
+DeFi
+Fed
+Federal Reserve
+Interest Rate
+Inflation
+Recession
+Bull Market
+Bear Market
+S&P 500
+Nasdaq
+Dow Jones
+
+# Fintech
+Fintech
+PayPal
+Stripe
+Square
+Robinhood
 
 # Technology
 Technology
 Tech
 Innovation
+Startup
+Software
+Cloud
+SaaS
+API
 
 # Energy
 Nuclear

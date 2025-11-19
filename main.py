@@ -1720,7 +1720,7 @@ def render_html_content(
             }
             
             .header {
-                background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+                background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
                 color: white;
                 padding: 32px 24px;
                 text-align: center;
@@ -1765,9 +1765,17 @@ def render_html_content(
             }
             
             .header-title {
-                font-size: 22px;
+                font-size: 24px;
                 font-weight: 700;
+                margin: 0 0 8px 0;
+                letter-spacing: -0.5px;
+            }
+
+            .header-subtitle {
+                font-size: 14px;
+                opacity: 0.9;
                 margin: 0 0 20px 0;
+                font-weight: 400;
             }
             
             .header-info {
@@ -1934,6 +1942,36 @@ def render_html_content(
                 color: #059669;
                 font-size: 11px;
                 font-weight: 500;
+            }
+
+            .category-tag {
+                display: inline-block;
+                padding: 2px 8px;
+                border-radius: 10px;
+                font-size: 10px;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.3px;
+            }
+
+            .category-ai {
+                background: #dbeafe;
+                color: #1e40af;
+            }
+
+            .category-finance {
+                background: #d1fae5;
+                color: #065f46;
+            }
+
+            .category-tech {
+                background: #fce7f3;
+                color: #9f1239;
+            }
+
+            .category-crypto {
+                background: #fef3c7;
+                color: #92400e;
             }
             
             .news-title {
@@ -2129,7 +2167,8 @@ def render_html_content(
                     <button class="save-btn" onclick="saveAsImage()">Save as Image</button>
                     <button class="save-btn" onclick="saveAsMultipleImages()">Save in Segments</button>
                 </div>
-                <div class="header-title">Trending News Analysis</div>
+                <div class="header-title">📊 TrendRadar</div>
+                <div class="header-subtitle">AI, Finance & Technology News Analysis</div>
                 <div class="header-info">
                     <div class="info-item">
                         <span class="info-label">Report Type</span>
