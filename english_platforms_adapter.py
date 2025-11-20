@@ -55,25 +55,32 @@ class EnglishPlatformsAdapter:
 
     def fetch_from_reddit(self, subreddit: str) -> Dict:
         """
-        Fetch trending posts from Reddit
-
+        Fetch trending posts from Reddit using old.reddit.com
+        
         Args:
             subreddit: Subreddit name (e.g., 'worldnews', 'technology')
-
+        
         Returns:
             Dict with format: {'id': str, 'name': str, 'items': List[Dict]}
         """
-        url = f"https://www.reddit.com/r/{subreddit}/hot.json"
+        # Use old.reddit.com which is more lenient with API access
+        url = f"https://old.reddit.com/r/{subreddit}/hot.json"
+        
+        # More realistic browser headers
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Accept': 'application/json',
-            'Accept-Language': 'en-US,en;q=0.9',
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.5',
             'Accept-Encoding': 'gzip, deflate, br',
             'DNT': '1',
             'Connection': 'keep-alive',
-            'Upgrade-Insecure-Requests': '1'
+            'Upgrade-Insecure-Requests': '1',
+            'Sec-Fetch-Dest': 'document',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-Site': 'none',
+            'Cache-Control': 'max-age=0'
         }
-        params = {'limit': 100}
+        params = {'limit': 50}  # Reduced to 50 to be less aggressive
 
         try:
             response = requests.get(
