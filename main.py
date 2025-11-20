@@ -3586,6 +3586,7 @@ def send_to_notifications(
             html_file_path,
             email_smtp_server,
             email_smtp_port,
+            report_data,  # Pass report_data for Gmail rendering
         )
 
     if not results:
@@ -3908,13 +3909,21 @@ def send_to_telegram(
     return True
 
 
-def convert_to_gmail_html(original_html: str) -> str:
+def convert_to_gmail_html(original_html: str, report_data: Optional[Dict] = None) -> str:
     """
     Convert HTML to Gmail-optimized format with inline styles.
     Gmail strips <style> tags and doesn't support many modern CSS features,
     so we use table-based layout with inline styles for maximum compatibility.
     """
-    return f"""
+    if not report_data:
+        # Fallback if no report_data provided
+        return original_html
+    
+    # Build Gmail-compatible HTML with actual news content
+    html_parts = []
+    
+    # Header
+    html_parts.append("""
 <!DOCTYPE html>
 <html>
 <head>
@@ -3925,42 +3934,96 @@ def convert_to_gmail_html(original_html: str) -> str:
     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f4f4f4; padding: 20px 0;">
         <tr>
             <td align="center">
-                <table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff; border-radius: 8px; overflow: hidden;">
+                <table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff;">
                     <!-- Header -->
                     <tr>
                         <td style="background-color: #1e3a8a; color: #ffffff; padding: 30px 20px; text-align: center;">
                             <h1 style="margin: 0 0 10px 0; font-size: 28px; font-weight: bold;">📊 TrendRadar</h1>
-                            <p style="margin: 0; font-size: 14px; opacity: 0.9;">AI, Finance & Technology News</p>
+                            <p style="margin: 0; font-size: 14px;">AI, Finance & Technology News</p>
                         </td>
                     </tr>
-                    
-                    <!-- Content -->
+    """)
+    
+    # Content section
+    html_parts.append("""
                     <tr>
-                        <td style="padding: 30px 20px; background-color: #ffffff;">
-                            <p style="margin: 0 0 20px 0; color: #333333; font-size: 14px; line-height: 1.6;">
-                                Your TrendRadar report is ready! 🎉
-                            </p>
-                            <p style="margin: 0 0 20px 0; color: #666666; font-size: 13px;">
-                                This is a simplified Gmail-compatible version. For the full interactive report with charts, filters, and export options, please check the HTML file in your output folder or open this email in a desktop email client (Apple Mail, Outlook, Thunderbird).
-                            </p>
-                            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f8f9fa; border-left: 4px solid #1e3a8a; margin: 20px 0;">
+                        <td style="padding: 20px; background-color: #ffffff;">
+    """)
+    
+    # Render news by category
+    for stat in report_data.get("stats", []):
+        word = html_escape(stat["word"])
+        count = stat["count"]
+        
+        # Category header
+        html_parts.append(f"""
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 25px; background-color: #f8f9fa; border-radius: 8px;">
                                 <tr>
-                                    <td style="padding: 15px;">
-                                        <p style="margin: 0; color: #333333; font-size: 13px;">
-                                            <strong>📌 Tip:</strong> The full HTML report in your output folder contains:
-                                        </p>
-                                        <ul style="margin: 10px 0 0 0; padding-left: 20px; color: #666666; font-size: 13px;">
-                                            <li>Interactive trending news with rankings</li>
-                                            <li>Source filtering and sorting</li>
-                                            <li>Export to image functionality</li>
-                                            <li>Beautiful charts and visualizations</li>
-                                        </ul>
+                                    <td style="padding: 15px; border-left: 4px solid #1e3a8a;">
+                                        <h2 style="margin: 0; font-size: 18px; color: #1e3a8a;">{word}</h2>
+                                        <p style="margin: 5px 0 0 0; font-size: 12px; color: #6b7280;">{count} items</p>
                                     </td>
                                 </tr>
                             </table>
-                            <p style="margin: 20px 0 0 0; color: #666666; font-size: 12px; font-style: italic;">
-                                Gmail has limited HTML support. We recommend viewing the full report in your output folder for the best experience.
-                            </p>
+        """)
+        
+        # Render news items
+        for idx, title_data in enumerate(stat["titles"], 1):
+            title = html_escape(title_data["title"])
+            source = html_escape(title_data["source_name"])
+            ranks = title_data.get("ranks", [])
+            url = title_data.get("url", "")
+            is_new = title_data.get("is_new", False)
+            
+            # Rank display
+            rank_text = ""
+            if ranks:
+                min_rank = min(ranks)
+                max_rank = max(ranks)
+                if min_rank == max_rank:
+                    rank_text = f"#{min_rank}"
+                else:
+                    rank_text = f"#{min_rank}-{max_rank}"
+            
+            # New badge
+            new_badge = "🆕 " if is_new else ""
+            
+            # Background color for new items
+            bg_color = "#fffbeb" if is_new else "#ffffff"
+            
+            # Make title clickable if URL exists
+            if url:
+                title_html = f'<a href="{html_escape(url)}" style="color: #1e3a8a; text-decoration: none; font-weight: 500;">{title}</a>'
+            else:
+                title_html = f'<span style="color: #333333; font-weight: 500;">{title}</span>'
+            
+            html_parts.append(f"""
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 12px; background-color: {bg_color}; border: 1px solid #e5e7eb; border-radius: 6px;">
+                                <tr>
+                                    <td style="padding: 12px 15px;">
+                                        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td style="width: 30px; vertical-align: top;">
+                                                    <span style="display: inline-block; background-color: #e5e7eb; color: #6b7280; font-size: 12px; font-weight: bold; padding: 4px 8px; border-radius: 4px; text-align: center; min-width: 20px;">{idx}</span>
+                                                </td>
+                                                <td style="vertical-align: top;">
+                                                    <div style="margin-bottom: 6px;">
+                                                        <span style="background-color: #f3f4f6; color: #6b7280; font-size: 11px; padding: 3px 8px; border-radius: 4px; margin-right: 6px;">{source}</span>
+                                                        {f'<span style="background-color: #dc2626; color: #ffffff; font-size: 10px; font-weight: bold; padding: 3px 6px; border-radius: 4px; margin-right: 6px;">{rank_text}</span>' if rank_text else ''}
+                                                    </div>
+                                                    <div style="font-size: 14px; line-height: 1.5; color: #111827;">
+                                                        {new_badge}{title_html}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+            """)
+    
+    # Footer
+    html_parts.append("""
                         </td>
                     </tr>
                     
@@ -3979,7 +4042,9 @@ def convert_to_gmail_html(original_html: str) -> str:
     </table>
 </body>
 </html>
-"""
+    """)
+    
+    return "".join(html_parts)
 
 
 def send_to_email(
@@ -3990,6 +4055,7 @@ def send_to_email(
     html_file_path: str,
     custom_smtp_server: Optional[str] = None,
     custom_smtp_port: Optional[int] = None,
+    report_data: Optional[Dict] = None,
 ) -> bool:
     """Send email notification"""
     try:
@@ -4002,7 +4068,7 @@ def send_to_email(
             original_html = f.read()
         
         # Convert to Gmail-optimized HTML with inline styles
-        html_content = convert_to_gmail_html(original_html)
+        html_content = convert_to_gmail_html(original_html, report_data)
 
         domain = from_email.split("@")[-1].lower()
 
