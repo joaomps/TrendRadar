@@ -55,7 +55,7 @@ class EnglishPlatformsAdapter:
 
     def fetch_from_reddit(self, subreddit: str) -> Dict:
         """
-        Fetch trending posts from Reddit using old.reddit.com
+        Fetch trending posts from Reddit using RSS feeds (no authentication needed)
         
         Args:
             subreddit: Subreddit name (e.g., 'worldnews', 'technology')
@@ -63,58 +63,63 @@ class EnglishPlatformsAdapter:
         Returns:
             Dict with format: {'id': str, 'name': str, 'items': List[Dict]}
         """
-        # Use old.reddit.com which is more lenient with API access
-        url = f"https://old.reddit.com/r/{subreddit}/hot.json"
+        # Use RSS feed which doesn't require authentication
+        url = f"https://www.reddit.com/r/{subreddit}/.rss"
         
-        # More realistic browser headers
+        # Simple headers for RSS
         headers = {
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.5',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'DNT': '1',
-            'Connection': 'keep-alive',
-            'Upgrade-Insecure-Requests': '1',
-            'Sec-Fetch-Dest': 'document',
-            'Sec-Fetch-Mode': 'navigate',
-            'Sec-Fetch-Site': 'none',
-            'Cache-Control': 'max-age=0'
         }
-        params = {'limit': 50}  # Reduced to 50 to be less aggressive
 
         try:
             response = requests.get(
                 url,
                 headers=headers,
-                params=params,
                 proxies=self.proxies,
                 timeout=15
             )
             response.raise_for_status()
-            data = response.json()
-
+            
+            # Parse RSS XML
+            import xml.etree.ElementTree as ET
+            root = ET.fromstring(response.content)
+            
             items = []
-            for idx, post in enumerate(data['data']['children'], 1):
-                post_data = post['data']
-                
-                # Skip stickied posts and ads
-                if post_data.get('stickied') or post_data.get('is_sponsored'):
+            # RSS uses different namespaces
+            for idx, entry in enumerate(root.findall('.//{http://www.w3.org/2005/Atom}entry'), 1):
+                try:
+                    title_elem = entry.find('{http://www.w3.org/2005/Atom}title')
+                    link_elem = entry.find('{http://www.w3.org/2005/Atom}link')
+                    updated_elem = entry.find('{http://www.w3.org/2005/Atom}updated')
+                    
+                    if title_elem is not None and link_elem is not None:
+                        title = title_elem.text
+                        link = link_elem.get('href', '')
+                        
+                        # Skip stickied posts (usually have [Megathread] or similar in title)
+                        if any(skip in title.lower() for skip in ['[megathread]', '[meta]', 'stickied']):
+                            continue
+                        
+                        items.append({
+                            'rank': idx,
+                            'title': title,
+                            'url': link,
+                            'mobileUrl': link,
+                            'score': 0,  # RSS doesn't provide scores
+                            'comments': 0,  # RSS doesn't provide comment counts
+                            'created': 0
+                        })
+                        
+                        if len(items) >= 50:  # Limit to 50 items
+                            break
+                except Exception as e:
+                    print(f"Error parsing RSS entry: {e}")
                     continue
-
-                items.append({
-                    'rank': idx,
-                    'title': post_data['title'],
-                    'url': f"https://reddit.com{post_data['permalink']}",
-                    'mobileUrl': f"https://reddit.com{post_data['permalink']}",
-                    'score': post_data.get('score', 0),
-                    'comments': post_data.get('num_comments', 0),
-                    'created': post_data.get('created_utc', 0)
-                })
 
             return {
                 'id': f"reddit-{subreddit}",
                 'name': f"Reddit r/{subreddit}",
-                'items': items[:50]  # Limit to top 50
+                'items': items
             }
 
         except Exception as e:
