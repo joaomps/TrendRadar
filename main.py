@@ -223,19 +223,19 @@ print(f"Number of monitored platforms: {len(CONFIG['PLATFORMS'])}")
 
 
 # === Utility Functions ===
-def get_beijing_time():
-    """Get Beijing time"""
-    return datetime.now(pytz.timezone("Asia/Shanghai"))
+def get_utc_time():
+    """Get UTC time"""
+    return datetime.now(pytz.UTC)
 
 
 def format_date_folder():
     """Format date folder (YYYY-MM-DD format)"""
-    return get_beijing_time().strftime("%Y-%m-%d")
+    return get_utc_time().strftime("%Y-%m-%d")
 
 
 def format_time_filename():
     """Format time filename (HH-MM format)"""
-    return get_beijing_time().strftime("%H-%M")
+    return get_utc_time().strftime("%H-%M")
 
 
 def clean_title(title: str) -> str:
@@ -346,19 +346,19 @@ class PushRecordManager:
 
     def get_today_record_file(self) -> Path:
         """Get today's record file path"""
-        today = get_beijing_time().strftime("%Y%m%d")
+        today = get_utc_time().strftime("%Y%m%d")
         return self.record_dir / f"push_record_{today}.json"
 
     def cleanup_old_records(self):
         """Clean up expired push records"""
         retention_days = CONFIG["PUSH_WINDOW"]["RECORD_RETENTION_DAYS"]
-        current_time = get_beijing_time()
+        current_time = get_utc_time()
 
         for record_file in self.record_dir.glob("push_record_*.json"):
             try:
                 date_str = record_file.stem.replace("push_record_", "")
                 file_date = datetime.strptime(date_str, "%Y%m%d")
-                file_date = pytz.timezone("Asia/Shanghai").localize(file_date)
+                file_date = pytz.UTC.localize(file_date)
 
                 if (current_time - file_date).days > retention_days:
                     record_file.unlink()
@@ -384,7 +384,7 @@ class PushRecordManager:
     def record_push(self, report_type: str):
         """Record push"""
         record_file = self.get_today_record_file()
-        now = get_beijing_time()
+        now = get_utc_time()
 
         record = {
             "pushed": True,
@@ -401,7 +401,7 @@ class PushRecordManager:
 
     def is_in_time_range(self, start_time: str, end_time: str) -> bool:
         """Check if current time is within specified time range"""
-        now = get_beijing_time()
+        now = get_utc_time()
         current_time = now.strftime("%H:%M")
 
         def normalize_time(time_str: str) -> str:
@@ -2314,7 +2314,7 @@ def render_html_content(
                         <span class="stat-label">Time</span>
                         <span class="stat-value">"""
 
-    now = get_beijing_time()
+    now = get_utc_time()
     html += now.strftime("%H:%M")
 
     html += """</span>
@@ -2911,7 +2911,7 @@ def render_feishu_content(
         for i, id_value in enumerate(report_data["failed_ids"], 1):
             text_content += f"  • <font color='red'>{id_value}</font>\n"
 
-    now = get_beijing_time()
+    now = get_utc_time()
     text_content += (
         f"\n\n<font color='grey'>Updated: {now.strftime('%Y-%m-%d %H:%M:%S')}</font>"
     )
@@ -2931,7 +2931,7 @@ def render_dingtalk_content(
     total_titles = sum(
         len(stat["titles"]) for stat in report_data["stats"] if stat["count"] > 0
     )
-    now = get_beijing_time()
+    now = get_utc_time()
 
     text_content += f"**Total News:** {total_titles}\n\n"
     text_content += f"**Time:** {now.strftime('%Y-%m-%d %H:%M:%S')}\n\n"
@@ -3038,7 +3038,7 @@ def split_content_into_batches(
     total_titles = sum(
         len(stat["titles"]) for stat in report_data["stats"] if stat["count"] > 0
     )
-    now = get_beijing_time()
+    now = get_utc_time()
 
     base_header = ""
     if format_type == "wework":
@@ -3502,7 +3502,7 @@ def send_to_notifications(
         time_range_end = CONFIG["PUSH_WINDOW"]["TIME_RANGE"]["END"]
 
         if not push_manager.is_in_time_range(time_range_start, time_range_end):
-            now = get_beijing_time()
+            now = get_utc_time()
             print(
                 f"推送窗口控制：当前Time {now.strftime('%H:%M')} not within push time window {time_range_start}-{time_range_end} , skipping push"
             )
@@ -3650,7 +3650,7 @@ def send_to_feishu(
         total_titles = sum(
             len(stat["titles"]) for stat in report_data["stats"] if stat["count"] > 0
         )
-        now = get_beijing_time()
+        now = get_utc_time()
 
         payload = {
             "msg_type": "text",
@@ -3968,12 +3968,13 @@ def send_to_email(
 
         # Set email subject with UTC time
         now_utc = datetime.now(pytz.UTC)
+        now = get_utc_time()
         subject = f"TrendRadar Hot Topics Analysis Report - {report_type} - {now_utc.strftime('%m-%d %H:%M')} UTC"
         msg["Subject"] = Header(subject, "utf-8")
 
         # Set other standard headers
         msg["MIME-Version"] = "1.0"
-        msg["Date"] = formatdate(localtime=True)
+        msg["Date"] = formatdate(localtime=False)
         msg["Message-ID"] = make_msgid()
 
         # 添加纯文本部分（作为备选）
@@ -4554,7 +4555,7 @@ class NewsAnalyzer:
 
     def _initialize_and_check_config(self) -> None:
         """General initialization and configuration check"""
-        now = get_beijing_time()
+        now = get_utc_time()
         print(f"Current UTC time: {datetime.now(pytz.UTC).strftime('%Y-%m-%d %H:%M:%S')} UTC")
 
         if not CONFIG["ENABLE_CRAWLER"]:

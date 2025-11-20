@@ -240,9 +240,8 @@ class SystemManagementTools:
 
                     news_data.append(news_item)
 
-            # 获取北京时间
-            beijing_tz = pytz.timezone("Asia/Shanghai")
-            now = datetime.now(beijing_tz)
+            # 获取UTC时间
+            now = datetime.now(pytz.UTC)
 
             # 构建返回结果
             result = {

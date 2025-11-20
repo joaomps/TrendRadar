@@ -51,8 +51,8 @@ notification:
     # Note: GitHub Actions execution time is unstable, recommend at least 2-hour window
     # For precise scheduled pushes, recommend Docker deployment on personal server
     time_range:
-      start: "20:00" # Push window start time (Beijing Time / Asia/Shanghai)
-      end: "22:00" # Push window end time (Beijing Time / Asia/Shanghai)
+      start: "20:00" # Push window start time (UTC)
+      end: "22:00" # Push window end time (UTC)
     once_per_day: true # Push only once per day within window; if false, push on every execution within window
     push_record_retention_days: 7 # Push record retention days
 
