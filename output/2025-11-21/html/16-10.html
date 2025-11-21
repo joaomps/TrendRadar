@@ -1,0 +1,1529 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TrendRadar - AI, Finance & Technology News</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+                margin: 0;
+                padding: 20px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: #1a202c;
+                line-height: 1.6;
+                -webkit-font-smoothing: antialiased;
+            }
+
+            .container {
+                max-width: 680px;
+                margin: 0 auto;
+                background: white;
+                border-radius: 16px;
+                overflow: hidden;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            }
+
+            .header {
+                background: linear-gradient(135deg, #1e3a8a 0%, #5b21b6 50%, #7e22ce 100%);
+                color: white;
+                padding: 40px 32px;
+                text-align: center;
+                position: relative;
+                border-bottom: 4px solid #fbbf24;
+            }
+
+            .header::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 4px;
+                background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #f59e0b);
+            }
+            
+            .save-buttons {
+                position: absolute;
+                top: 16px;
+                right: 16px;
+                display: flex;
+                gap: 8px;
+            }
+            
+            .save-btn {
+                background: rgba(255, 255, 255, 0.2);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 13px;
+                font-weight: 500;
+                transition: all 0.2s ease;
+                backdrop-filter: blur(10px);
+                white-space: nowrap;
+            }
+            
+            .save-btn:hover {
+                background: rgba(255, 255, 255, 0.3);
+                border-color: rgba(255, 255, 255, 0.5);
+                transform: translateY(-1px);
+            }
+            
+            .save-btn:active {
+                transform: translateY(0);
+            }
+            
+            .save-btn:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+            }
+            
+            .logo {
+                font-size: 48px;
+                margin-bottom: 12px;
+                filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+            }
+
+            .header-title {
+                font-size: 32px;
+                font-weight: 800;
+                margin: 0 0 8px 0;
+                letter-spacing: -1px;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+            .header-subtitle {
+                font-size: 15px;
+                opacity: 0.95;
+                margin: 0 0 28px 0;
+                font-weight: 400;
+                letter-spacing: 0.3px;
+            }
+
+            .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 12px;
+                margin-top: 24px;
+            }
+
+            .stat-card {
+                background: rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(10px);
+                border-radius: 12px;
+                padding: 16px 12px;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                transition: transform 0.2s ease, background 0.2s ease;
+            }
+
+            .stat-card:hover {
+                transform: translateY(-2px);
+                background: rgba(255, 255, 255, 0.2);
+            }
+
+            .stat-label {
+                display: block;
+                font-size: 11px;
+                opacity: 0.85;
+                margin-bottom: 6px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                font-weight: 600;
+            }
+
+            .stat-value {
+                font-weight: 700;
+                font-size: 20px;
+                line-height: 1;
+                text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            }
+            
+            .content {
+                padding: 32px 28px;
+                background: #fafbfc;
+            }
+
+            .word-group {
+                margin-bottom: 36px;
+                background: white;
+                border-radius: 12px;
+                padding: 24px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+                border: 1px solid #e5e7eb;
+            }
+
+            .word-group:first-child {
+                margin-top: 0;
+            }
+
+            .word-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 20px;
+                padding-bottom: 12px;
+                border-bottom: 2px solid #f3f4f6;
+            }
+
+            .word-info {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .word-name {
+                font-size: 20px;
+                font-weight: 700;
+                color: #111827;
+                letter-spacing: -0.3px;
+            }
+
+            .word-count {
+                background: #f3f4f6;
+                color: #6b7280;
+                font-size: 12px;
+                font-weight: 600;
+                padding: 4px 12px;
+                border-radius: 12px;
+            }
+
+            .word-count.hot {
+                background: #fee2e2;
+                color: #dc2626;
+                font-weight: 700;
+            }
+
+            .word-count.warm {
+                background: #ffedd5;
+                color: #ea580c;
+                font-weight: 700;
+            }
+            
+            .word-index {
+                background: #f9fafb;
+                color: #9ca3af;
+                font-size: 11px;
+                font-weight: 600;
+                padding: 4px 10px;
+                border-radius: 8px;
+            }
+
+            .news-item {
+                margin-bottom: 16px;
+                padding: 18px;
+                background: #fafbfc;
+                border-radius: 10px;
+                position: relative;
+                display: flex;
+                gap: 14px;
+                align-items: flex-start;
+                border: 1px solid #f3f4f6;
+                transition: all 0.2s ease;
+            }
+
+            .news-item:hover {
+                background: #f9fafb;
+                border-color: #e5e7eb;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            }
+
+            .news-item:last-child {
+                margin-bottom: 0;
+            }
+
+            .news-item.new {
+                border-left: 3px solid #fbbf24;
+                background: #fffbeb;
+            }
+
+            .news-item.new::after {
+                content: "NEW";
+                position: absolute;
+                top: 16px;
+                right: 16px;
+                background: #fbbf24;
+                color: #92400e;
+                font-size: 9px;
+                font-weight: 800;
+                padding: 4px 8px;
+                border-radius: 6px;
+                letter-spacing: 0.5px;
+                box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            }
+            
+            .news-number {
+                color: #6b7280;
+                font-size: 14px;
+                font-weight: 700;
+                min-width: 28px;
+                text-align: center;
+                flex-shrink: 0;
+                background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+                border-radius: 8px;
+                width: 28px;
+                height: 28px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 2px;
+                box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            }
+
+            .news-content {
+                flex: 1;
+                min-width: 0;
+                padding-right: 50px;
+            }
+
+            .news-item.new .news-content {
+                padding-right: 60px;
+            }
+
+            .news-header {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 10px;
+                flex-wrap: wrap;
+            }
+
+            .source-name {
+                color: #6b7280;
+                font-size: 12px;
+                font-weight: 600;
+                background: #f3f4f6;
+                padding: 3px 10px;
+                border-radius: 6px;
+            }
+
+            .rank-num {
+                color: #fff;
+                background: #6b7280;
+                font-size: 10px;
+                font-weight: 800;
+                padding: 3px 8px;
+                border-radius: 6px;
+                min-width: 22px;
+                text-align: center;
+                box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            }
+
+            .rank-num.top {
+                background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            }
+
+            .rank-num.high {
+                background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+            }
+            
+            .time-info {
+                color: #999;
+                font-size: 11px;
+            }
+            
+            .count-info {
+                color: #059669;
+                font-size: 11px;
+                font-weight: 500;
+            }
+
+            .category-tag {
+                display: inline-block;
+                padding: 2px 8px;
+                border-radius: 10px;
+                font-size: 10px;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.3px;
+            }
+
+            .category-ai {
+                background: #dbeafe;
+                color: #1e40af;
+            }
+
+            .category-finance {
+                background: #d1fae5;
+                color: #065f46;
+            }
+
+            .category-tech {
+                background: #fce7f3;
+                color: #9f1239;
+            }
+
+            .category-crypto {
+                background: #fef3c7;
+                color: #92400e;
+            }
+            
+            .news-title {
+                font-size: 15px;
+                line-height: 1.5;
+                color: #111827;
+                margin: 0;
+                font-weight: 500;
+            }
+
+            .news-link {
+                color: #2563eb;
+                text-decoration: none;
+                transition: color 0.2s ease;
+                font-weight: 500;
+            }
+
+            .news-link:hover {
+                color: #1d4ed8;
+                text-decoration: underline;
+            }
+
+            .news-link:visited {
+                color: #7c3aed;
+            }
+            
+            .new-section {
+                margin-top: 40px;
+                padding-top: 24px;
+                border-top: 2px solid #f0f0f0;
+            }
+            
+            .new-section-title {
+                color: #1a1a1a;
+                font-size: 16px;
+                font-weight: 600;
+                margin: 0 0 20px 0;
+            }
+            
+            .new-source-group {
+                margin-bottom: 24px;
+            }
+            
+            .new-source-title {
+                color: #666;
+                font-size: 13px;
+                font-weight: 500;
+                margin: 0 0 12px 0;
+                padding-bottom: 6px;
+                border-bottom: 1px solid #f5f5f5;
+            }
+            
+            .new-item {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 8px 0;
+                border-bottom: 1px solid #f9f9f9;
+            }
+            
+            .new-item:last-child {
+                border-bottom: none;
+            }
+            
+            .new-item-number {
+                color: #999;
+                font-size: 12px;
+                font-weight: 600;
+                min-width: 18px;
+                text-align: center;
+                flex-shrink: 0;
+                background: #f8f9fa;
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .new-item-rank {
+                color: #fff;
+                background: #6b7280;
+                font-size: 10px;
+                font-weight: 700;
+                padding: 3px 6px;
+                border-radius: 8px;
+                min-width: 20px;
+                text-align: center;
+                flex-shrink: 0;
+            }
+            
+            .new-item-rank.top { background: #dc2626; }
+            .new-item-rank.high { background: #ea580c; }
+            
+            .new-item-content {
+                flex: 1;
+                min-width: 0;
+            }
+            
+            .new-item-title {
+                font-size: 14px;
+                line-height: 1.4;
+                color: #1a1a1a;
+                margin: 0;
+            }
+            
+            .error-section {
+                background: #fef2f2;
+                border: 1px solid #fecaca;
+                border-radius: 8px;
+                padding: 16px;
+                margin-bottom: 24px;
+            }
+            
+            .error-title {
+                color: #dc2626;
+                font-size: 14px;
+                font-weight: 600;
+                margin: 0 0 8px 0;
+            }
+            
+            .error-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            
+            .error-item {
+                color: #991b1b;
+                font-size: 13px;
+                padding: 2px 0;
+                font-family: 'SF Mono', Consolas, monospace;
+            }
+            
+            .footer {
+                background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+                color: white;
+                padding: 28px 32px;
+                text-align: center;
+                border-top: 3px solid #fbbf24;
+            }
+
+            .footer-content {
+                font-size: 13px;
+                line-height: 1.8;
+                opacity: 0.9;
+            }
+
+            .footer-link {
+                color: #fbbf24;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.2s ease;
+            }
+
+            .footer-link:hover {
+                color: #fcd34d;
+                text-decoration: underline;
+            }
+
+            .project-name {
+                font-weight: 700;
+                color: white;
+                font-size: 14px;
+            }
+
+            .footer-tagline {
+                margin-top: 8px;
+                font-size: 12px;
+                opacity: 0.7;
+            }
+            
+            @media (max-width: 680px) {
+                body { padding: 12px; }
+                .container { border-radius: 12px; }
+                .header { padding: 32px 24px; }
+                .content { padding: 24px 20px; }
+                .footer { padding: 24px 20px; }
+                .logo { font-size: 40px; }
+                .header-title { font-size: 26px; }
+                .header-subtitle { font-size: 14px; }
+                .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+                .stat-card { padding: 14px 10px; }
+                .stat-value { font-size: 18px; }
+                .word-group { padding: 20px; margin-bottom: 24px; }
+                .word-name { font-size: 18px; }
+                .news-item { padding: 14px; gap: 10px; }
+                .news-header { gap: 6px; }
+                .news-content { padding-right: 45px; }
+                .news-number { width: 24px; height: 24px; font-size: 12px; }
+                .new-item { gap: 8px; }
+                .save-buttons {
+                    position: static;
+                    margin-bottom: 16px;
+                    display: flex;
+                    gap: 8px;
+                    justify-content: center;
+                    flex-direction: column;
+                    width: 100%;
+                }
+                .save-btn { width: 100%; }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <div class="save-buttons">
+                    <button class="save-btn" onclick="saveAsImage()">Save as Image</button>
+                    <button class="save-btn" onclick="saveAsMultipleImages()">Save in Segments</button>
+                </div>
+                <div class="logo">📊</div>
+                <div class="header-title">TrendRadar</div>
+                <div class="header-subtitle">AI, Finance & Technology News Analysis</div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-label">Mode</span>
+                        <span class="stat-value">Live</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Total</span>
+                        <span class="stat-value">102</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Trending</span>
+                        <span class="stat-value">50</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Time</span>
+                        <span class="stat-value">16:10</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content">
+                <div class="error-section">
+                    <div class="error-title">⚠️ Failed Platforms</div>
+                    <ul class="error-list"><li class="error-item">reuters</li>
+                    </ul>
+                </div>
+                <div class="word-group">
+                    <div class="word-header">
+                        <div class="word-info">
+                            <div class="word-name"># AI &amp; Technology AI Artificial Intelligence Machine Learning ML Deep Learning Neural Network LLM Large Language Model GPT Transformer Generative AI</div>
+                            <div class="word-count hot">30 items</div>
+                        </div>
+                        <div class="word-index">1/11</div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">1</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit Programming</span><span class="rank-num top">1</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/programming/comments/1p2z6ka/git_30_is_using_the_default_branch_name_of_main/" target="_blank" class="news-link">Git 3.0 is using the default branch name of &quot;main&quot; rather than the current default of &quot;master&quot;</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">2</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit Science</span><span class="rank-num top">1</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/science/comments/1p2x6q4/the_batman_effect_a_female_experimenter_appearing/" target="_blank" class="news-link">The Batman effect: A female experimenter, appearing pregnant, boarded the train. In the experimental condition, an additional experimenter dressed as Batman entered from another door. Passengers were significantly more likely to offer their seat when Batman was present (67.21% vs. 37.66%).</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">3</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit AI</span><span class="rank-num top">1</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/artificial/comments/1p31xqa/president_trump_revives_unpopular_ted_cruz_plan/" target="_blank" class="news-link">President Trump revives unpopular Ted Cruz plan to punish states that impose AI laws | Cruz plan to block broadband funding lost 99-1, but now it’s back—in Trump form.</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">4</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Wired</span><span class="rank-num top">1</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.wired.com/story/paradromics-gets-fda-approval-to-trial-its-brain-implant-in-people/" target="_blank" class="news-link">Paradromics Gets FDA Approval to Trial Its Brain Implant in People</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">5</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Bloomberg</span><span class="rank-num top">1</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.bloomberg.com/news/articles/2025-11-20/cyber-warfare-startup-nabs-contracts-to-give-us-military-hackers-ai-tools" target="_blank" class="news-link">Cyber Warfare Startup Nabs Contracts to Give US Military Hackers AI Tools</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">6</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">The Verge</span><span class="rank-num top">2</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.theverge.com/podcast/823909/the-doordash-problem-ai-agents-web-amazon-perplexity-lawsuit" target="_blank" class="news-link">The DoorDash Problem: How AI browsers are a huge threat to Amazon</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">7</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit World News</span><span class="rank-num top">3</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/worldnews/comments/1p2yhle/us_threatens_to_cut_intel_weapons_to_press/" target="_blank" class="news-link">US threatens to cut intel, weapons to press Ukraine into peace deal - sources</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">8</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit News</span><span class="rank-num top">3</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/news/comments/1p31ona/exclusive_us_threatens_to_cut_intel_weapons_to/" target="_blank" class="news-link">Exclusive: US threatens to cut intel, weapons to press Ukraine into peace deal, sources say</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">9</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit Machine Learning</span><span class="rank-num top">3</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/MachineLearning/comments/1p2xvwi/d_how_to_transition_to_industry_after_an_aiml_phd/" target="_blank" class="news-link">[D] How to transition to industry after an AI/ML PhD</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">10</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit AI</span><span class="rank-num high">4</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/artificial/comments/1p31izw/new_research_shows_how_ai_could_transform_math/" target="_blank" class="news-link">New research shows how AI could transform math, physics, cancer research, and more</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">11</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">The Verge</span><span class="rank-num high">4</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.theverge.com/news/824953/librepods-apple-airpods-wireless-headphones-android-linux" target="_blank" class="news-link">AirPods’ best features come to Android and Linux with free app</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">12</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit World News</span><span class="rank-num ">6</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/worldnews/comments/1p31hy6/ukraine_faces_losing_dignity_or_us_support_with/" target="_blank" class="news-link">Ukraine faces losing dignity or US support with Trump’s plan to end war, Zelensky says</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">13</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit World News</span><span class="rank-num ">7</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/worldnews/comments/1p2y6sx/reform_uks_former_wales_leader_jailed_for_10/" target="_blank" class="news-link">Reform UK’s former Wales leader jailed for 10 years for taking pro-Russian bribes</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">14</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit World News</span><span class="rank-num ">8</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/worldnews/comments/1p2ztiy/us_threatening_to_cut_intelligence_weapons_to/" target="_blank" class="news-link">US threatening to cut intelligence, weapons to pressure Ukraine into new peace deal, Reuters reports</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">15</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit AI</span><span class="rank-num ">8</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/artificial/comments/1p2ylsx/meta_tests_aipowered_morning_briefing_to/" target="_blank" class="news-link">Meta tests AI-powered morning briefing to challenge chatbots</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">16</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit AI</span><span class="rank-num ">10</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/artificial/comments/1p31l78/llms_are_getting_jailbroken_by_poetry_yes_the/" target="_blank" class="news-link">LLMs Are Getting Jailbroken by… Poetry. Yes, The rest is silence.</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">17</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit AI</span><span class="rank-num ">11</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/artificial/comments/1p2yzsn/is_there_an_ai_music_site_that_will_allow_you_to/" target="_blank" class="news-link">Is there an AI music site that will allow you to put in copyrighted material [ say the Beatles ] so they it can generate a cover version?</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">18</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit Machine Learning</span><span class="rank-num ">11</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/MachineLearning/comments/1p31o8h/p_how_do_ml_folks_source_visual_assets_icons/" target="_blank" class="news-link">[P] How do ML folks source visual assets (icons, diagrams, SVG) for multimodal or explanation-based workflows?</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">19</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit Programming</span><span class="rank-num ">12</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/programming/comments/1p30pus/a_simple_way_to_embed_edit_and_run_python_code/" target="_blank" class="news-link">A simple way to embed, edit and run Python code and Jupyter Notebooks directly in any HTML page for CS lessons</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">20</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit Technology</span><span class="rank-num ">13</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/technology/comments/1p2x2x7/hundreds_of_englishlanguage_websites_link_to/" target="_blank" class="news-link">Hundreds of English-language websites link to pro-Kremlin propaganda</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">21</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit Programming</span><span class="rank-num ">13</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/programming/comments/1p2zb69/built_a_tiny_highperformance_telemetrylog_tailing/" target="_blank" class="news-link">Built a tiny high-performance telemetry/log tailing agent in Zig (epoll + inotify). Feedback &amp; contributors welcome</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">22</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit Technology</span><span class="rank-num ">17</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/technology/comments/1p30p6s/aipowered_toy_that_tell_kids_how_to_start_fires/" target="_blank" class="news-link">AI-powered toy that tell kids how to start fires taken off sale as makers respond</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">23</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit Technology</span><span class="rank-num ">18</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/technology/comments/1p2zlls/white_house_threatens_states_with_lawsuits_over/" target="_blank" class="news-link">White House threatens states with lawsuits over AI regulation</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">24</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit World News</span><span class="rank-num ">20</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/worldnews/comments/1p2xgeg/uk_to_lead_30country_coalition_planning_troop/" target="_blank" class="news-link">UK to Lead 30-Country Coalition Planning Troop Deployment to Ukraine After War</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">25</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit World News</span><span class="rank-num ">21</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/worldnews/comments/1p31i57/finlands_president_urges_europe_to_hold_its_nerve/" target="_blank" class="news-link">Finland’s president urges Europe to hold its nerve as he warns no ceasefire likely soon in Ukraine</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">26</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit News</span><span class="rank-num ">21</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/news/comments/1p32971/us_men_indicted_for_alleged_coup_plot_to_kill_and/" target="_blank" class="news-link">US men indicted for alleged coup plot to kill and rape people on Haitian island</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">27</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit Investing</span><span class="rank-num ">21</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/investing/comments/1p2xplh/how_can_i_invest_in_dubai_with_5001000_aedmonth/" target="_blank" class="news-link">How can I invest in Dubai with 500–1000 AED/month as a non-resident?</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">28</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit World News</span><span class="rank-num ">23</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/worldnews/comments/1p2vzvq/japanese_leader_says_she_wants_better_ties_with/" target="_blank" class="news-link">Japanese leader says she wants better ties with China but doesn’t withdraw Taiwan comments</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">29</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit World News</span><span class="rank-num ">24</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/worldnews/comments/1p2wlbs/colombia_recovers_first_treasures_from_300yearold/" target="_blank" class="news-link">Colombia recovers first treasures from 300-year-old ‘holy grail of shipwrecks’</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">30</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit Local LLMs</span><span class="rank-num ">25</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1p2zn84/affordableunder_3k_setup_for_llm_posttraining/" target="_blank" class="news-link">Affordable(under $3k) setup for LLM post-training</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-group">
+                    <div class="word-header">
+                        <div class="word-info">
+                            <div class="word-name"># Technology Technology Tech Innovation Startup Software Cloud SaaS API</div>
+                            <div class="word-count ">4 items</div>
+                        </div>
+                        <div class="word-index">2/11</div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">1</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit Programming</span><span class="rank-num top">3</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/programming/comments/1p2x8ex/a_technical_insight_about_modern_compilation/" target="_blank" class="news-link">A Technical Insight About Modern Compilation</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">2</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit Technology</span><span class="rank-num ">10</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/technology/comments/1p2w7td/aws_under_pressure_as_big_three_battle_to_eat_the/" target="_blank" class="news-link">AWS under pressure as big three battle to eat the cloud market</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">3</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit Programming</span><span class="rank-num ">18</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/programming/comments/1p32ayr/good_software_doesnt_matter_anymore/" target="_blank" class="news-link">Good software doesn&#x27;t matter anymore...</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">4</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit Technology</span><span class="rank-num ">21</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/technology/comments/1p2quae/pornhub_begs_tech_giants_to_verify_user_ages_on/" target="_blank" class="news-link">Pornhub Begs Tech Giants to Verify User Ages on Their Device: Report</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-group">
+                    <div class="word-header">
+                        <div class="word-info">
+                            <div class="word-name"># Google Google Gemini DeepMind</div>
+                            <div class="word-count ">3 items</div>
+                        </div>
+                        <div class="word-index">3/11</div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">1</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">The Verge</span><span class="rank-num ">7</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.theverge.com/news/824786/google-gemini-synthid-ai-image-detection" target="_blank" class="news-link">Google Gemini is getting better at identifying AI fakes</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">2</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">The Verge</span><span class="rank-num ">8</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.theverge.com/news/824785/google-nano-banana-pro-try-free-examples-prices" target="_blank" class="news-link">Google’s Nano Banana AI image model goes Pro and is free to try</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">3</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit AI</span><span class="rank-num ">17</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/artificial/comments/1p2zeo7/gemini_can_determine_whether_an_image_was/" target="_blank" class="news-link">Gemini can determine whether an image was generated by AI.</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-group">
+                    <div class="word-header">
+                        <div class="word-info">
+                            <div class="word-name"># NVIDIA NVIDIA Jensen Huang</div>
+                            <div class="word-count ">2 items</div>
+                        </div>
+                        <div class="word-index">4/11</div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">1</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit Technology</span><span class="rank-num ">12</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/technology/comments/1p2y981/four_americans_charged_with_smuggling_nvidia_gpus/" target="_blank" class="news-link">Four Americans charged with smuggling Nvidia GPUs and HPE supercomputers to China face up to 200 years in prison —$3.89 million worth of gear smuggled in operation</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">2</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit Investing</span><span class="rank-num ">18</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/investing/comments/1p2zbem/nvidia_timeline_strong_numbers_mixed_market/" target="_blank" class="news-link">Nvidia Timeline Strong Numbers Mixed Market Reaction.</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-group">
+                    <div class="word-header">
+                        <div class="word-info">
+                            <div class="word-name"># OpenAI ChatGPT OpenAI Sora</div>
+                            <div class="word-count ">2 items</div>
+                        </div>
+                        <div class="word-index">5/11</div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">1</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">The Verge</span><span class="rank-num high">5</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.theverge.com/news/825036/openai-chatgpt-atlas-arc-vertical-tabs-update" target="_blank" class="news-link">ChatGPT Atlas adds Arc-like vertical tabs</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">2</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit Programming</span><span class="rank-num ">7</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/programming/comments/1p2ykxl/openai_and_foxconn_partner_to_build_us_aihardware/" target="_blank" class="news-link">OpenAI and Foxconn partner to build U.S. AI-hardware infrastructure</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-group">
+                    <div class="word-header">
+                        <div class="word-info">
+                            <div class="word-name"># Robotics Robot Robotics Humanoid Boston Dynamics</div>
+                            <div class="word-count ">2 items</div>
+                        </div>
+                        <div class="word-index">6/11</div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">1</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit Stocks</span><span class="rank-num top">3</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/stocks/comments/1p30906/amazon_wants_to_repalce_600k_workers_with_robots/" target="_blank" class="news-link">Amazon wants to repalce 600k workers with robots which will lead them in saving 30 cents for every item they store and ship from warehouses</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">2</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit Technology</span><span class="rank-num high">5</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/technology/comments/1p2zhm3/leaked_documents_reveal_that_amazon_could_replace/" target="_blank" class="news-link">Leaked documents reveal that Amazon could replace 600,000 US workers with robots</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-group">
+                    <div class="word-header">
+                        <div class="word-info">
+                            <div class="word-name"># Semiconductors &amp; Hardware Chip Semiconductor Lithography ASML TSMC Intel Qualcomm ARM GPU TPU Quantum Computing</div>
+                            <div class="word-count ">2 items</div>
+                        </div>
+                        <div class="word-index">7/11</div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">1</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Hacker News</span><span class="rank-num top">2</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://xnacly.me/posts/2025/building-a-minimal-viable-armv7-emulator/" target="_blank" class="news-link">Building a Minimal Viable Armv7 Emulator from Scratch</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">2</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit Science</span><span class="rank-num ">8</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/science/comments/1p317ir/new_research_in_the_journal_of_economic/" target="_blank" class="news-link">New research in the Journal of Economic Criminology confirms that illegal wildlife trade is tied to other forms of criminal activity, including trafficking in drugs, arms, people, stolen vehicles, mined resources, counterfeit goods and human body parts.</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-group">
+                    <div class="word-header">
+                        <div class="word-info">
+                            <div class="word-name"># Finance &amp; Markets Stock Market Trading Investment Venture Capital VC IPO Crypto Cryptocurrency Bitcoin Ethereum Blockchain DeFi Fed Federal Reserve Interest Rate Inflation Recession Bull Market Bear Market S&amp;P 500 Nasdaq Dow Jones</div>
+                            <div class="word-count ">2 items</div>
+                        </div>
+                        <div class="word-index">8/11</div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">1</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit WallStreetBets</span><span class="rank-num top">3</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/wallstreetbets/comments/1p2y9xp/fedwatch_has_just_jumped_from_44_to_70/" target="_blank" class="news-link">FedWatch has just jumped from 44% to 70% probability for rate cuts in December.</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">2</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Bloomberg</span><span class="rank-num top">3</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.bloomberg.com/news/articles/2025-11-20/walmart-jumps-to-nasdaq-in-biggest-exchange-transfer-on-record" target="_blank" class="news-link">Walmart Jumps to Nasdaq in Biggest Exchange Transfer on Record</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-group">
+                    <div class="word-header">
+                        <div class="word-info">
+                            <div class="word-name"># Tesla Tesla Elon Musk</div>
+                            <div class="word-count ">1 items</div>
+                        </div>
+                        <div class="word-index">9/11</div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">1</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit Local LLMs</span><span class="rank-num ">19</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1p3165c/best_llm_for_4x_nvidia_tesla_p40/" target="_blank" class="news-link">Best LLM for 4x Nvidia Tesla P40?</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-group">
+                    <div class="word-header">
+                        <div class="word-info">
+                            <div class="word-name"># Countries USA United States Japan Korea South Korea</div>
+                            <div class="word-count ">1 items</div>
+                        </div>
+                        <div class="word-index">10/11</div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">1</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Reddit Science</span><span class="rank-num ">9</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.reddit.com/r/science/comments/1p2yguu/weather_patterns_that_produced_five_severe_heat/" target="_blank" class="news-link">Weather patterns that produced five severe heat waves in Europe over the past 30 years could kill thousands more people if repeated in today’s hotter global climate, pushing weekly deaths toward levels seen during the COVID pandemic, a new study finds.</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-group">
+                    <div class="word-header">
+                        <div class="word-info">
+                            <div class="word-name"># Space &amp; Aerospace Moon Lunar Mars Space Universe Spacecraft Aerospace Aviation</div>
+                            <div class="word-count ">1 items</div>
+                        </div>
+                        <div class="word-index">11/11</div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">1</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">Hacker News</span><span class="rank-num ">41</span><span class="time-info">16-10</span>
+                            </div>
+                            <div class="news-title"><a href="https://pmig96.wordpress.com/2025/11/12/color-spaces-bitmaps-and-pumpkins/" target="_blank" class="news-link">Color Spaces, Bitmaps and Pumpkins</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <div class="footer-content">
+                    Generated by <span class="project-name">TrendRadar</span> ·
+                    <a href="https://github.com/sansan0/TrendRadar" target="_blank" class="footer-link">
+                        GitHub Open Source Project
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            async function saveAsImage() {
+                const button = event.target;
+                const originalText = button.textContent;
+                
+                try {
+                    button.textContent = 'Generating...';
+                    button.disabled = true;
+                    window.scrollTo(0, 0);
+
+                    // Wait for page to stabilize
+                    await new Promise(resolve => setTimeout(resolve, 200));
+
+                    // Hide buttons before screenshot
+                    const buttons = document.querySelector('.save-buttons');
+                    buttons.style.visibility = 'hidden';
+
+                    // Wait again to ensure buttons are fully hidden
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                    
+                    const container = document.querySelector('.container');
+                    
+                    const canvas = await html2canvas(container, {
+                        backgroundColor: '#ffffff',
+                        scale: 1.5,
+                        useCORS: true,
+                        allowTaint: false,
+                        imageTimeout: 10000,
+                        removeContainer: false,
+                        foreignObjectRendering: false,
+                        logging: false,
+                        width: container.offsetWidth,
+                        height: container.offsetHeight,
+                        x: 0,
+                        y: 0,
+                        scrollX: 0,
+                        scrollY: 0,
+                        windowWidth: window.innerWidth,
+                        windowHeight: window.innerHeight
+                    });
+                    
+                    buttons.style.visibility = 'visible';
+                    
+                    const link = document.createElement('a');
+                    const now = new Date();
+                    const filename = `TrendRadar_Trending_News_${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}_${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}.png`;
+                    
+                    link.download = filename;
+                    link.href = canvas.toDataURL('image/png', 1.0);
+                    
+                    // 触发下载
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    button.textContent = '保存Success!';
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.disabled = false;
+                    }, 2000);
+                    
+                } catch (error) {
+                    const buttons = document.querySelector('.save-buttons');
+                    buttons.style.visibility = 'visible';
+                    button.textContent = '保存Failed';
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.disabled = false;
+                    }, 2000);
+                }
+            }
+            
+            async function saveAsMultipleImages() {
+                const button = event.target;
+                const originalText = button.textContent;
+                const container = document.querySelector('.container');
+                const scale = 1.5; 
+                const maxHeight = 5000 / scale;
+                
+                try {
+                    button.textContent = 'Analyzing...';
+                    button.disabled = true;
+
+                    // Get all possible split elements
+                    const newsItems = Array.from(container.querySelectorAll('.news-item'));
+                    const wordGroups = Array.from(container.querySelectorAll('.word-group'));
+                    const newSection = container.querySelector('.new-section');
+                    const errorSection = container.querySelector('.error-section');
+                    const header = container.querySelector('.header');
+                    const footer = container.querySelector('.footer');
+                    
+                    // Calculate element positions and heights
+                    const containerRect = container.getBoundingClientRect();
+                    const elements = [];
+
+                    // Add header as a required element
+                    elements.push({
+                        type: 'header',
+                        element: header,
+                        top: 0,
+                        bottom: header.offsetHeight,
+                        height: header.offsetHeight
+                    });
+                    
+                    // Add error information (if exists)
+                    if (errorSection) {
+                        const rect = errorSection.getBoundingClientRect();
+                        elements.push({
+                            type: 'error',
+                            element: errorSection,
+                            top: rect.top - containerRect.top,
+                            bottom: rect.bottom - containerRect.top,
+                            height: rect.height
+                        });
+                    }
+                    
+                    // Process news-items by word-group
+                    wordGroups.forEach(group => {
+                        const groupRect = group.getBoundingClientRect();
+                        const groupNewsItems = group.querySelectorAll('.news-item');
+
+                        // Add word-group header section
+                        const wordHeader = group.querySelector('.word-header');
+                        if (wordHeader) {
+                            const headerRect = wordHeader.getBoundingClientRect();
+                            elements.push({
+                                type: 'word-header',
+                                element: wordHeader,
+                                parent: group,
+                                top: groupRect.top - containerRect.top,
+                                bottom: headerRect.bottom - containerRect.top,
+                                height: headerRect.height
+                            });
+                        }
+                        
+                        // Add each news-item
+                        groupNewsItems.forEach(item => {
+                            const rect = item.getBoundingClientRect();
+                            elements.push({
+                                type: 'news-item',
+                                element: item,
+                                parent: group,
+                                top: rect.top - containerRect.top,
+                                bottom: rect.bottom - containerRect.top,
+                                height: rect.height
+                            });
+                        });
+                    });
+                    
+                    // Add new news section
+                    if (newSection) {
+                        const rect = newSection.getBoundingClientRect();
+                        elements.push({
+                            type: 'new-section',
+                            element: newSection,
+                            top: rect.top - containerRect.top,
+                            bottom: rect.bottom - containerRect.top,
+                            height: rect.height
+                        });
+                    }
+                    
+                    // Add footer
+                    const footerRect = footer.getBoundingClientRect();
+                    elements.push({
+                        type: 'footer',
+                        element: footer,
+                        top: footerRect.top - containerRect.top,
+                        bottom: footerRect.bottom - containerRect.top,
+                        height: footer.offsetHeight
+                    });
+                    
+                    // Calculate split points
+                    const segments = [];
+                    let currentSegment = { start: 0, end: 0, height: 0, includeHeader: true };
+                    let headerHeight = header.offsetHeight;
+                    currentSegment.height = headerHeight;
+                    
+                    for (let i = 1; i < elements.length; i++) {
+                        const element = elements[i];
+                        const potentialHeight = element.bottom - currentSegment.start;
+                        
+                        // Check if new segment is needed
+                        if (potentialHeight > maxHeight && currentSegment.height > headerHeight) {
+                            // Split at previous element's end
+                            currentSegment.end = elements[i - 1].bottom;
+                            segments.push(currentSegment);
+
+                            // Start new segment
+                            currentSegment = {
+                                start: currentSegment.end,
+                                end: 0,
+                                height: element.bottom - currentSegment.end,
+                                includeHeader: false
+                            };
+                        } else {
+                            currentSegment.height = potentialHeight;
+                            currentSegment.end = element.bottom;
+                        }
+                    }
+                    
+                    // Add last segment
+                    if (currentSegment.height > 0) {
+                        currentSegment.end = container.offsetHeight;
+                        segments.push(currentSegment);
+                    }
+                    
+                    button.textContent = `Generating (0/${segments.length})...`;
+
+                    // Hide save buttons
+                    const buttons = document.querySelector('.save-buttons');
+                    buttons.style.visibility = 'hidden';
+
+                    // Generate image for each segment
+                    const images = [];
+                    for (let i = 0; i < segments.length; i++) {
+                        const segment = segments[i];
+                        button.textContent = `Generating (${i + 1}/${segments.length})...`;
+                        
+                        // Create temporary container for screenshot
+                        const tempContainer = document.createElement('div');
+                        tempContainer.style.cssText = `
+                            position: absolute;
+                            left: -9999px;
+                            top: 0;
+                            width: ${container.offsetWidth}px;
+                            background: white;
+                        `;
+                        tempContainer.className = 'container';
+                        
+                        // Clone container content
+                        const clonedContainer = container.cloneNode(true);
+
+                        // Remove save buttons from cloned content
+                        const clonedButtons = clonedContainer.querySelector('.save-buttons');
+                        if (clonedButtons) {
+                            clonedButtons.style.display = 'none';
+                        }
+                        
+                        tempContainer.appendChild(clonedContainer);
+                        document.body.appendChild(tempContainer);
+                        
+                        // Wait for DOM update
+                        await new Promise(resolve => setTimeout(resolve, 100));
+                        
+                        // Use html2canvas to capture specific area
+                        const canvas = await html2canvas(clonedContainer, {
+                            backgroundColor: '#ffffff',
+                            scale: scale,
+                            useCORS: true,
+                            allowTaint: false,
+                            imageTimeout: 10000,
+                            logging: false,
+                            width: container.offsetWidth,
+                            height: segment.end - segment.start,
+                            x: 0,
+                            y: segment.start,
+                            windowWidth: window.innerWidth,
+                            windowHeight: window.innerHeight
+                        });
+                        
+                        images.push(canvas.toDataURL('image/png', 1.0));
+                        
+                        // Clean up temporary container
+                        document.body.removeChild(tempContainer);
+                    }
+                    
+                    // Restore button visibility
+                    buttons.style.visibility = 'visible';
+
+                    // Download all images
+                    const now = new Date();
+                    const baseFilename = `TrendRadar_Trending_News_${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}_${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
+                    
+                    for (let i = 0; i < images.length; i++) {
+                        const link = document.createElement('a');
+                        link.download = `${baseFilename}_part${i + 1}.png`;
+                        link.href = images[i];
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        
+                        // Delay to avoid browser blocking multiple downloads
+                        await new Promise(resolve => setTimeout(resolve, 100));
+                    }
+
+                    button.textContent = `Saved ${segments.length} images!`;
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.disabled = false;
+                    }, 2000);
+                    
+                } catch (error) {
+                    console.error('Segment save failed:', error);
+                    const buttons = document.querySelector('.save-buttons');
+                    buttons.style.visibility = 'visible';
+                    button.textContent = 'Save failed';
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.disabled = false;
+                    }, 2000);
+                }
+            }
+            
+            document.addEventListener('DOMContentLoaded', function() {
+                window.scrollTo(0, 0);
+            });
+        </script>
+    </body>
+    </html>
+    
