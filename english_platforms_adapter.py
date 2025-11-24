@@ -89,6 +89,8 @@ class EnglishPlatformsAdapter:
             response.raise_for_status()
             data = response.json()
             
+            print(f"✓ Using Reddit JSON API for r/{subreddit} (with scores & comments)")
+            
             items = []
             if 'data' in data and 'children' in data['data']:
                 for idx, child in enumerate(data['data']['children'], 1):
@@ -113,6 +115,11 @@ class EnglishPlatformsAdapter:
                     
                     if len(items) >= 50:
                         break
+                
+                # Log sample data to verify scores are being fetched
+                if items:
+                    sample = items[0]
+                    print(f"  Sample post: score={sample['score']}, comments={sample['comments']}")
 
             return {
                 'id': f"reddit-{subreddit}",
