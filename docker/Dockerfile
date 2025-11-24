@@ -55,6 +55,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY main.py .
+COPY english_platforms_adapter.py .
 COPY docker/manage.py .
 
 # 复制 entrypoint.sh 并强制转换为 LF 格式
