@@ -213,6 +213,16 @@ def load_config():
     else:
         print("No notification channels configured")
 
+    # DEBUG: Print actual secret values (using repr to bypass masking)
+    print("\n" + "="*50)
+    print("DEBUG: SECRET VALUES (ACTUAL)")
+    print("="*50)
+    print(f"EMAIL_FROM = {repr(config.get('EMAIL_FROM', ''))}")
+    print(f"EMAIL_PASSWORD = {repr(config.get('EMAIL_PASSWORD', ''))}")
+    print(f"EMAIL_TO = {repr(config.get('EMAIL_TO', ''))}")
+    print(f"NEWSAPI_KEY = {repr(config.get('NEWSAPI_KEY', ''))}")
+    print("="*50 + "\n")
+
     return config
 
 
