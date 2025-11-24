@@ -213,14 +213,6 @@ def load_config():
     else:
         print("No notification channels configured")
 
-    # DEBUG: Print secrets as requested
-    print("\n--- DEBUG: SECRET VALUES ---")
-    print(f"EMAIL_FROM: {config.get('EMAIL_FROM')}")
-    print(f"EMAIL_PASSWORD: {config.get('EMAIL_PASSWORD')}")
-    print(f"EMAIL_TO: {config.get('EMAIL_TO')}")
-    print(f"NEWSAPI_KEY: {config.get('NEWSAPI_KEY')}")
-    print("----------------------------\n")
-
     return config
 
 
