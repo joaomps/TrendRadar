@@ -1,0 +1,164 @@
+hackernews | Hacker News
+1. RuBee [URL:https://computer.rip/2025-11-22-RuBee.html] [MOBILE:https://computer.rip/2025-11-22-RuBee.html]
+2. Fran Sans – font inspired by San Francisco light rail displays [URL:https://emilysneddon.com/fran-sans-essay] [MOBILE:https://emilysneddon.com/fran-sans-essay]
+3. A One-Minute ADHD Test [URL:https://psychotechnology.substack.com/p/a-one-minute-adhd-test-2330] [MOBILE:https://psychotechnology.substack.com/p/a-one-minute-adhd-test-2330]
+4. Disney Lost Roger Rabbit [URL:https://pluralistic.net/2025/11/18/im-not-bad/] [MOBILE:https://pluralistic.net/2025/11/18/im-not-bad/]
+5. Ask HN: Hearing aid wearers, what's hot? [URL:https://news.ycombinator.com/item?id=46029699] [MOBILE:https://news.ycombinator.com/item?id=46029699]
+6. The Rust Performance Book (2020) [URL:https://nnethercote.github.io/perf-book/] [MOBILE:https://nnethercote.github.io/perf-book/]
+7. Lambda Calculus – Animated Beta Reduction of Lambda Diagrams [URL:https://cruzgodar.com/applets/lambda-calculus] [MOBILE:https://cruzgodar.com/applets/lambda-calculus]
+8. µcad: New open source programming language that can generate 2D sketches and 3D [URL:https://microcad.xyz/] [MOBILE:https://microcad.xyz/]
+9. Breakthrough in antimatter production [URL:https://home.cern/news/news/experiments/breakthrough-antimatter-production] [MOBILE:https://home.cern/news/news/experiments/breakthrough-antimatter-production]
+10. Native Secure Enclave backed SSH keys on macOS [URL:https://gist.github.com/arianvp/5f59f1783e3eaf1a2d4cd8e952bb4acf] [MOBILE:https://gist.github.com/arianvp/5f59f1783e3eaf1a2d4cd8e952bb4acf]
+11. Japan's gamble to turn island of Hokkaido into global chip hub [URL:https://www.bbc.com/news/articles/c8676qpxgnqo] [MOBILE:https://www.bbc.com/news/articles/c8676qpxgnqo]
+12. New magnetic component discovered in the Faraday effect after nearly 2 centuries [URL:https://phys.org/news/2025-11-magnetic-component-faraday-effect-centuries.html] [MOBILE:https://phys.org/news/2025-11-magnetic-component-faraday-effect-centuries.html]
+13. Show HN: Stun LLMs with thousands of invisible Unicode characters [URL:https://gibberifier.com] [MOBILE:https://gibberifier.com]
+14. Show HN: Syd – An offline-first, AI-augmented workstation for blue teams [URL:https://www.sydsec.co.uk] [MOBILE:https://www.sydsec.co.uk]
+15. Build desktop applications using Go and Web Technologies [URL:https://github.com/wailsapp/wails] [MOBILE:https://github.com/wailsapp/wails]
+16. The Cloudflare outage might be a good thing [URL:https://gist.github.com/jbreckmckye/32587f2907e473dd06d68b0362fb0048] [MOBILE:https://gist.github.com/jbreckmckye/32587f2907e473dd06d68b0362fb0048]
+17. Moss survived outside of the International Space Station for 9 months [URL:https://www.livescience.com/space/scientists-put-moss-on-the-outside-of-the-international-space-station-for-9-months-then-kept-it-growing-back-on-earth] [MOBILE:https://www.livescience.com/space/scientists-put-moss-on-the-outside-of-the-international-space-station-for-9-months-then-kept-it-growing-back-on-earth]
+18. Having Fun with Complex Numbers [URL:https://mathwonder.org/Having-Fun-with-Complex-Numbers/] [MOBILE:https://mathwonder.org/Having-Fun-with-Complex-Numbers/]
+19. Set theory with types [URL:https://lawrencecpaulson.github.io//2025/11/21/Typed_Set_Theory.html] [MOBILE:https://lawrencecpaulson.github.io//2025/11/21/Typed_Set_Theory.html]
+20. Hyperoptic: IPv6 and Out-of-Order Packets [URL:https://blog.zakkemble.net/hyperoptic-ipv6-and-out-of-order-packets/] [MOBILE:https://blog.zakkemble.net/hyperoptic-ipv6-and-out-of-order-packets/]
+21. Calculus for Mathematicians, Computer Scientists, and Physicists [pdf] [URL:https://mathcs.holycross.edu/~ahwang/print/calc.pdf] [MOBILE:https://mathcs.holycross.edu/~ahwang/print/calc.pdf]
+22. Passing the Torch – My Last Root DNSSEC KSK Ceremony as Crypto Officer 4 [URL:https://technotes.seastrom.com/2025/11/23/passing-the-torch.html] [MOBILE:https://technotes.seastrom.com/2025/11/23/passing-the-torch.html]
+23. Murphyjitsu (2018) [URL:https://www.lesswrong.com/posts/N47M3JiHveHfwdbFg/hammertime-day-10-murphyjitsu] [MOBILE:https://www.lesswrong.com/posts/N47M3JiHveHfwdbFg/hammertime-day-10-murphyjitsu]
+24. Show HN: I wrote a minimal memory allocator in C [URL:https://github.com/t9nzin/memory] [MOBILE:https://github.com/t9nzin/memory]
+25. We stopped roadmap work for a week and fixed bugs [URL:https://lalitm.com/fixits-are-good-for-the-soul/] [MOBILE:https://lalitm.com/fixits-are-good-for-the-soul/]
+26. Band of Holes [URL:https://en.wikipedia.org/wiki/Band_of_Holes] [MOBILE:https://en.wikipedia.org/wiki/Band_of_Holes]
+27. Liva AI (YC S25) Is Hiring [URL:https://www.ycombinator.com/companies/liva-ai/jobs/fYP8QP8-growth-intern] [MOBILE:https://www.ycombinator.com/companies/liva-ai/jobs/fYP8QP8-growth-intern]
+28. Ego, empathy, and humility at work [URL:https://matthogg.fyi/a-unified-theory-of-ego-empathy-and-humility-at-work/] [MOBILE:https://matthogg.fyi/a-unified-theory-of-ego-empathy-and-humility-at-work/]
+29. Pixar: The Early Days [URL:https://stevejobsarchive.com/stories/pixar-early-days] [MOBILE:https://stevejobsarchive.com/stories/pixar-early-days]
+30. A time-travelling door bug in Half Life 2 [URL:https://mastodon.gamedev.place/@TomF/115589875974658415] [MOBILE:https://mastodon.gamedev.place/@TomF/115589875974658415]
+31. A desktop app for isolated, parallel agentic development [URL:https://github.com/coder/mux] [MOBILE:https://github.com/coder/mux]
+32. Show HN: Gitlogue – A terminal tool that replays your Git commits with animation [URL:https://github.com/unhappychoice/gitlogue] [MOBILE:https://github.com/unhappychoice/gitlogue]
+33. Iowa City made its buses free. Traffic cleared, and so did the air [URL:https://www.nytimes.com/2025/11/18/climate/iowa-city-free-buses.html] [MOBILE:https://www.nytimes.com/2025/11/18/climate/iowa-city-free-buses.html]
+34. Particle Life [URL:https://sandbox-science.com/particle-life] [MOBILE:https://sandbox-science.com/particle-life]
+35. Terence Tao: At the Erdos problem website, AI assistance now becoming routine [URL:https://mathstodon.xyz/@tao/115591487350860999] [MOBILE:https://mathstodon.xyz/@tao/115591487350860999]
+36. Ruby Was Ready from the Start [URL:https://obie.medium.com/ruby-was-ready-from-the-start-4b089b17babb] [MOBILE:https://obie.medium.com/ruby-was-ready-from-the-start-4b089b17babb]
+37. McMaster Carr – The Smartest Website You Haven't Heard Of [URL:https://www.bedelstein.com/post/mcmaster-carr] [MOBILE:https://www.bedelstein.com/post/mcmaster-carr]
+38. Braided Arithmetic [URL:https://mathcenter.oxford.emory.edu/site/math108/braid_arithmetic/] [MOBILE:https://mathcenter.oxford.emory.edu/site/math108/braid_arithmetic/]
+39. Mount Proton Drive on Linux using rclone and systemd [URL:https://github.com/dadtronics/protondrive-linux] [MOBILE:https://github.com/dadtronics/protondrive-linux]
+40. An Economy of AI Agents [URL:https://arxiv.org/abs/2509.01063] [MOBILE:https://arxiv.org/abs/2509.01063]
+41. Sunsetting Supermaven [URL:https://supermaven.com/blog/sunsetting-supermaven] [MOBILE:https://supermaven.com/blog/sunsetting-supermaven]
+42. The feds want to make it illegal to even possess an anarchist zine [URL:https://theintercept.com/2025/11/23/prairieland-ice-antifa-zines-criminalize-protest-journalism/] [MOBILE:https://theintercept.com/2025/11/23/prairieland-ice-antifa-zines-criminalize-protest-journalism/]
+43. Editing Code in Emacs [URL:https://redpenguin101.github.io/html/posts/2025_11_23_emacs_for_code_editing.html] [MOBILE:https://redpenguin101.github.io/html/posts/2025_11_23_emacs_for_code_editing.html]
+44. Shaders: How to draw high fidelity graphics with just x and y coordinates [URL:https://www.makingsoftware.com/chapters/shaders] [MOBILE:https://www.makingsoftware.com/chapters/shaders]
+45. A ncurses-based command line torrent client for high performance [URL:https://github.com/rakshasa/rtorrent] [MOBILE:https://github.com/rakshasa/rtorrent]
+46. Racket v9.0 [URL:https://blog.racket-lang.org/2025/11/racket-v9-0.html] [MOBILE:https://blog.racket-lang.org/2025/11/racket-v9-0.html]
+47. Court filings allege Meta downplayed risks to children and misled the public [URL:https://time.com/7336204/meta-lawsuit-files-child-safety/] [MOBILE:https://time.com/7336204/meta-lawsuit-files-child-safety/]
+48. After my dad died, we found the love letters [URL:https://www.jenn.site/after-my-dad-died-we-found-the-love-letters/] [MOBILE:https://www.jenn.site/after-my-dad-died-we-found-the-love-letters/]
+49. Insurers retreat from AI cover as risk of multibillion-dollar claims mounts [URL:https://www.ft.com/content/abfe9741-f438-4ed6-a673-075ec177dc62] [MOBILE:https://www.ft.com/content/abfe9741-f438-4ed6-a673-075ec177dc62]
+50. "Good engineering management" is a fad [URL:https://lethain.com/good-eng-mgmt-is-a-fad/] [MOBILE:https://lethain.com/good-eng-mgmt-is-a-fad/]
+
+techcrunch | TechCrunch
+1. Bye-bye bots: Altera's game-playing AI agents get backing from Eric Schmidt | TechCrunch [URL:https://techcrunch.com/2024/05/08/bye-bye-bots-alteras-game-playing-ai-agents-get-backing-from-eric-schmidt/] [MOBILE:https://techcrunch.com/2024/05/08/bye-bye-bots-alteras-game-playing-ai-agents-get-backing-from-eric-schmidt/]
+2. $450M for Noname, two billion-dollar rounds, and good news for crypto startups | TechCrunch [URL:https://techcrunch.com/2024/05/08/450m-for-noname-two-billion-dollar-rounds-and-good-news-for-crypto-startups/] [MOBILE:https://techcrunch.com/2024/05/08/450m-for-noname-two-billion-dollar-rounds-and-good-news-for-crypto-startups/]
+3. Watch: When did iPads get as expensive as MacBooks? [URL:https://techcrunch.com/2024/05/08/techcrunch-minute-when-did-ipads-get-as-expensive-as-macbooks/] [MOBILE:https://techcrunch.com/2024/05/08/techcrunch-minute-when-did-ipads-get-as-expensive-as-macbooks/]
+4. Uber promises member exclusives as Uber One passes $1B run-rate | TechCrunch [URL:https://techcrunch.com/2024/05/08/uber-promises-member-exclusives-as-uber-one-passes-1b-run-rate/] [MOBILE:https://techcrunch.com/2024/05/08/uber-promises-member-exclusives-as-uber-one-passes-1b-run-rate/]
+5. Checkfirst raises $1.5M pre-seed, applying AI to remote inspections and audits | TechCrunch [URL:https://techcrunch.com/2024/05/08/checkfirst-raises-1-5m-pre-seed-applying-ai-to-remote-inspections-and-audits/] [MOBILE:https://techcrunch.com/2024/05/08/checkfirst-raises-1-5m-pre-seed-applying-ai-to-remote-inspections-and-audits/]
+6. UK challenger bank Monzo nabs another $190M as US expansion beckons | TechCrunch [URL:https://techcrunch.com/2024/05/08/uk-challenger-bank-monzo-nabs-another-190m-at-5-2b-valuation/] [MOBILE:https://techcrunch.com/2024/05/08/uk-challenger-bank-monzo-nabs-another-190m-at-5-2b-valuation/]
+7. iRobot names former Timex head Gary Cohen as CEO | TechCrunch [URL:https://techcrunch.com/2024/05/08/irobot-names-former-timex-head-gary-cohen-as-ceo/] [MOBILE:https://techcrunch.com/2024/05/08/irobot-names-former-timex-head-gary-cohen-as-ceo/]
+8. Google Deepmind debuts huge AlphaFold update and free proteomics-as-a-service web app | TechCrunch [URL:https://techcrunch.com/2024/05/08/google-deepmind-debuts-huge-alphafold-update-and-free-proteomics-as-a-service-web-app/] [MOBILE:https://techcrunch.com/2024/05/08/google-deepmind-debuts-huge-alphafold-update-and-free-proteomics-as-a-service-web-app/]
+9. Mycocycle uses mushrooms to upcycle old tires and construction waste | TechCrunch [URL:https://techcrunch.com/2024/05/08/mycocycle-uses-mushrooms-to-upcycle-old-tires-and-construction-waste/] [MOBILE:https://techcrunch.com/2024/05/08/mycocycle-uses-mushrooms-to-upcycle-old-tires-and-construction-waste/]
+10. Controversial drone company Xtend leans into defense with new $40M round | TechCrunch [URL:https://techcrunch.com/2024/05/08/controversial-drone-company-xtend-leans-into-defense/] [MOBILE:https://techcrunch.com/2024/05/08/controversial-drone-company-xtend-leans-into-defense/]
+
+the-verge | The Verge
+1. Shocker: Elon Musk spends a lot of time on X posting bad political takes [URL:https://www.theverge.com/tech/827125/elon-musk-x-posts-politics-himself] [MOBILE:https://www.theverge.com/tech/827125/elon-musk-x-posts-politics-himself]
+2. Spotify simplifies importing playlists from other streaming services [URL:https://www.theverge.com/news/825646/spotify-playlist-import] [MOBILE:https://www.theverge.com/news/825646/spotify-playlist-import]
+3. Sony’s entire DualSense lineup is $20 off, including the limited edition models [URL:https://www.theverge.com/gadgets/826320/ps5-dualsense-wireless-controller-black-friday-deal-sale-2025] [MOBILE:https://www.theverge.com/gadgets/826320/ps5-dualsense-wireless-controller-black-friday-deal-sale-2025]
+4. The best Black Friday deals we’ve found (so far) [URL:https://www.theverge.com/tech/814345/black-friday-best-early-deals-2025] [MOBILE:https://www.theverge.com/tech/814345/black-friday-best-early-deals-2025]
+5. Carol seeks the truth (serum) in Pluribus episode 4 [URL:https://www.theverge.com/entertainment/826367/pluribus-episode-4-discussion] [MOBILE:https://www.theverge.com/entertainment/826367/pluribus-episode-4-discussion]
+6. ‘Jmail’ is like any other inbox, except this one has Jeffrey Epstein’s emails [URL:https://www.theverge.com/news/826901/jeffrey-epstein-files-emails-gmail-jmail] [MOBILE:https://www.theverge.com/news/826901/jeffrey-epstein-files-emails-gmail-jmail]
+7. Google denies ‘misleading’ reports of Gmail using your emails to train AI [URL:https://www.theverge.com/news/826902/gmail-ai-training-data-opt-out] [MOBILE:https://www.theverge.com/news/826902/gmail-ai-training-data-opt-out]
+8. Judge wants to fix Google’s ad tech monopoly before it’s too late [URL:https://www.theverge.com/news/826796/google-ad-tech-closing-arguments] [MOBILE:https://www.theverge.com/news/826796/google-ad-tech-closing-arguments]
+9. The best AR glasses are cheaper than ever during Black Friday [URL:https://www.theverge.com/gadgets/826225/xreal-one-viture-luma-pro-ar-glasses-steam-deck-switch-2-deal-sale] [MOBILE:https://www.theverge.com/gadgets/826225/xreal-one-viture-luma-pro-ar-glasses-steam-deck-switch-2-deal-sale]
+10. Forestrike trained me to become an incredible pixelated fighter [URL:https://www.theverge.com/games/826331/forestrike-review-nintendo-switch-steam] [MOBILE:https://www.theverge.com/games/826331/forestrike-review-nintendo-switch-steam]
+
+wired | Wired
+1. The Climate Impact of Owning a Dog [URL:https://www.wired.com/story/the-climate-paradox-of-having-a-dog/] [MOBILE:https://www.wired.com/story/the-climate-paradox-of-having-a-dog/]
+2. US Border Patrol Is Spying on Millions of American Drivers [URL:https://www.wired.com/story/security-news-this-week-us-border-patrol-is-spying-on-millions-of-american-drivers/] [MOBILE:https://www.wired.com/story/security-news-this-week-us-border-patrol-is-spying-on-millions-of-american-drivers/]
+3. OpenAI Locks Down San Francisco Offices Following Alleged Threat From Activist [URL:https://www.wired.com/story/openai-office-lockdown-threat-san-francisco/] [MOBILE:https://www.wired.com/story/openai-office-lockdown-threat-san-francisco/]
+4. Pranksters Recreated a Working Version of Jeffrey Epstein’s Gmail Inbox [URL:https://www.wired.com/story/pranksters-recreated-a-working-version-of-jeffrey-epstein-gmail-inbox/] [MOBILE:https://www.wired.com/story/pranksters-recreated-a-working-version-of-jeffrey-epstein-gmail-inbox/]
+5. Senators Want Extremism Researchers to Surrender Documents Linked to Right-Wing Grudges [URL:https://www.wired.com/story/senators-want-extremism-researchers-to-surrender-documents-linked-to-right-wing-grudges/] [MOBILE:https://www.wired.com/story/senators-want-extremism-researchers-to-surrender-documents-linked-to-right-wing-grudges/]
+6. This Hacker Conference Installed a Literal Anti-Virus Monitoring System [URL:https://www.wired.com/story/this-hacker-conference-installed-a-literal-anti-virus-monitoring-system/] [MOBILE:https://www.wired.com/story/this-hacker-conference-installed-a-literal-anti-virus-monitoring-system/]
+7. Paradromics Gets FDA Approval to Trial Its Brain Implant in People [URL:https://www.wired.com/story/paradromics-gets-fda-approval-to-trial-its-brain-implant-in-people/] [MOBILE:https://www.wired.com/story/paradromics-gets-fda-approval-to-trial-its-brain-implant-in-people/]
+8. With the Rise of AI, Cisco Sounds an Urgent Alarm About the Risks of Aging Tech [URL:https://www.wired.com/story/cisco-aging-technical-infrastructure/] [MOBILE:https://www.wired.com/story/cisco-aging-technical-infrastructure/]
+9. NASA Finally Weighs In on the Origin of 3I/ATLAS [URL:https://www.wired.com/story/nasa-confirms-that-3i-atlas-is-an-interstellar-comet/] [MOBILE:https://www.wired.com/story/nasa-confirms-that-3i-atlas-is-an-interstellar-comet/]
+10. How Donald Trump Lost Control of the Epstein Spin Cycle [URL:https://www.wired.com/story/how-donald-trump-lost-control-of-the-epstein-spin-cycle/] [MOBILE:https://www.wired.com/story/how-donald-trump-lost-control-of-the-epstein-spin-cycle/]
+
+ars-technica | Ars Technica
+1. Switch emulator Ryujinx shuts down development after “contact by Nintendo” [URL:https://arstechnica.com/gaming/2024/10/switch-emulator-ryujinx-shuts-down-development-after-contact-by-nintendo/] [MOBILE:https://arstechnica.com/gaming/2024/10/switch-emulator-ryujinx-shuts-down-development-after-contact-by-nintendo/]
+2. Lab owner pleads guilty to faking COVID test results during pandemic [URL:https://arstechnica.com/science/2024/10/covid-fraudster-pleads-guilty-faces-20-years-for-role-in-83m-testing-scam/] [MOBILE:https://arstechnica.com/science/2024/10/covid-fraudster-pleads-guilty-faces-20-years-for-role-in-83m-testing-scam/]
+3. AI digests repetitive scatological document into profound “poop” podcast [URL:https://arstechnica.com/ai/2024/10/ai-digests-repetitive-scatological-document-into-profound-poop-podcast/] [MOBILE:https://arstechnica.com/ai/2024/10/ai-digests-repetitive-scatological-document-into-profound-poop-podcast/]
+4. Crook made millions by breaking into execs’ Office365 inboxes, feds say [URL:https://arstechnica.com/security/2024/10/crook-made-millions-by-breaking-into-execs-office365-inboxes-feds-say/] [MOBILE:https://arstechnica.com/security/2024/10/crook-made-millions-by-breaking-into-execs-office365-inboxes-feds-say/]
+5. OpenAI unveils easy voice assistant creation at 2024 developer event [URL:https://arstechnica.com/information-technology/2024/10/openai-unveils-easy-voice-assistant-creation-at-2024-developer-event/] [MOBILE:https://arstechnica.com/information-technology/2024/10/openai-unveils-easy-voice-assistant-creation-at-2024-developer-event/]
+6. T-Mobile pays $16 million fine for three years’ worth of data breaches [URL:https://arstechnica.com/tech-policy/2024/10/t-mobile-pays-16-million-fine-for-three-years-worth-of-data-breaches/] [MOBILE:https://arstechnica.com/tech-policy/2024/10/t-mobile-pays-16-million-fine-for-three-years-worth-of-data-breaches/]
+7. Toxic chemicals from Ohio train derailment lingered in buildings for months [URL:https://theconversation.com/toxic-chemicals-from-ohio-train-derailment-lingered-in-buildings-for-months-heres-what-our-investigation-found-in-east-palestine-238511] [MOBILE:https://theconversation.com/toxic-chemicals-from-ohio-train-derailment-lingered-in-buildings-for-months-heres-what-our-investigation-found-in-east-palestine-238511]
+8. “Extreme” Broadcom-proposed price hike would up VMware costs 1,050%, AT&T says [URL:https://arstechnica.com/information-technology/2024/10/broadcom-tried-to-jack-vmware-prices-by-1050-percent-att-claims/] [MOBILE:https://arstechnica.com/information-technology/2024/10/broadcom-tried-to-jack-vmware-prices-by-1050-percent-att-claims/]
+9. Car dealers renew their opposition to EV mandates [URL:https://arstechnica.com/cars/2024/10/car-dealers-renew-their-opposition-to-ev-mandates/] [MOBILE:https://arstechnica.com/cars/2024/10/car-dealers-renew-their-opposition-to-ev-mandates/]
+10. eBay listings for banned chemicals shielded by Section 230, judge rules [URL:https://arstechnica.com/tech-policy/2024/10/ebay-defeats-doj-lawsuit-fighting-sale-of-toxic-pesticides-deadly-chemicals/] [MOBILE:https://arstechnica.com/tech-policy/2024/10/ebay-defeats-doj-lawsuit-fighting-sale-of-toxic-pesticides-deadly-chemicals/]
+
+the-next-web | The Next Web
+1. Rapid delivery giant Getir quits France, citing regulation hurdles [URL:http://thenextweb.com/news/quick-delivery-giant-getir-quits-france] [MOBILE:http://thenextweb.com/news/quick-delivery-giant-getir-quits-france]
+2. Mobility giant Bolt adopts self-driving Starship robots for food delivery [URL:http://thenextweb.com/news/mobility-giant-bolt-adopts-self-driving-starship-robots-for-food-delivery] [MOBILE:http://thenextweb.com/news/mobility-giant-bolt-adopts-self-driving-starship-robots-for-food-delivery]
+3. This startup gives your speech a new 'human-realistic' AI voice — for free [URL:http://thenextweb.com/news/this-startup-gives-your-speech-new-human-realistic-ai-voice-for-free] [MOBILE:http://thenextweb.com/news/this-startup-gives-your-speech-new-human-realistic-ai-voice-for-free]
+4. A metaverse network plots an escape from Meta's 'walled gardens' [URL:http://thenextweb.com/news/improbable-metaverse-network-m2-connected-virtual-worlds-outside-metas-walled-gardens] [MOBILE:http://thenextweb.com/news/improbable-metaverse-network-m2-connected-virtual-worlds-outside-metas-walled-gardens]
+5. New pay transparency regulations could help women negotiate better salaries [URL:http://thenextweb.com/news/new-pay-transparency-regulations-could-help-women-negotiate-better-salaries] [MOBILE:http://thenextweb.com/news/new-pay-transparency-regulations-could-help-women-negotiate-better-salaries]
+6. 3D-printed rocket engine revs up for orbital launch in Scotland [URL:http://thenextweb.com/news/3d-printed-rocket-engine-revs-up-orbital-launch-scotland] [MOBILE:http://thenextweb.com/news/3d-printed-rocket-engine-revs-up-orbital-launch-scotland]
+7. EU's EV battery ambitions hang in the balance [URL:http://thenextweb.com/news/eus-ev-battery-ambitions-hang-in-balance] [MOBILE:http://thenextweb.com/news/eus-ev-battery-ambitions-hang-in-balance]
+
+bloomberg | Bloomberg
+1. Musk Says Tesla Nears AI5 Chip Tape Out, Starting Work on AI6 [URL:https://www.bloomberg.com/news/articles/2025-11-23/musk-says-tesla-nears-ai5-chip-tape-out-starting-work-on-ai6] [MOBILE:https://www.bloomberg.com/news/articles/2025-11-23/musk-says-tesla-nears-ai5-chip-tape-out-starting-work-on-ai6]
+2. The Anti-Meloni Coalition Is Starting to Come Together in Italy [URL:https://www.bloomberg.com/news/articles/2025-11-23/the-anti-meloni-coalition-is-starting-to-come-together-in-italy] [MOBILE:https://www.bloomberg.com/news/articles/2025-11-23/the-anti-meloni-coalition-is-starting-to-come-together-in-italy]
+3. MBK Said to Get Notice of Heavy Sanctions Linked to Homeplus [URL:https://www.bloomberg.com/news/articles/2025-11-23/mbk-said-to-get-notice-of-heavy-sanctions-linked-to-homeplus] [MOBILE:https://www.bloomberg.com/news/articles/2025-11-23/mbk-said-to-get-notice-of-heavy-sanctions-linked-to-homeplus]
+4. Carlyle Group Targeting $300 Million for India Side Fund [URL:https://www.bloomberg.com/news/articles/2025-11-23/carlyle-group-targeting-300-million-for-india-side-fund] [MOBILE:https://www.bloomberg.com/news/articles/2025-11-23/carlyle-group-targeting-300-million-for-india-side-fund]
+5. Japan PM Takaichi to Be Proactive With Yen Intervention, Panelist Says [URL:https://www.bloomberg.com/news/articles/2025-11-23/takaichi-to-be-proactive-with-yen-intervention-panelist-says] [MOBILE:https://www.bloomberg.com/news/articles/2025-11-23/takaichi-to-be-proactive-with-yen-intervention-panelist-says]
+6. Starmer Says UK to Domestically Make 10% of Its Critical Minerals Needs [URL:https://www.bloomberg.com/news/articles/2025-11-22/uk-plans-to-domestically-make-10-of-its-critical-minerals-needs] [MOBILE:https://www.bloomberg.com/news/articles/2025-11-22/uk-plans-to-domestically-make-10-of-its-critical-minerals-needs]
+7. US Retail Sales Are Proving Resilient While Risks Mount [URL:https://www.bloomberg.com/news/articles/2025-11-22/us-retail-sales-are-proving-resilient-while-risks-mount] [MOBILE:https://www.bloomberg.com/news/articles/2025-11-22/us-retail-sales-are-proving-resilient-while-risks-mount]
+8. Six Big Takeaways From COP30 Climate Talks [URL:https://www.bloomberg.com/news/articles/2025-11-22/six-big-takeaways-from-cop30-climate-talks] [MOBILE:https://www.bloomberg.com/news/articles/2025-11-22/six-big-takeaways-from-cop30-climate-talks]
+9. PE Firms Flood Junk Debt Market to Pay Themselves: Credit Weekly [URL:https://www.bloomberg.com/news/articles/2025-11-22/pe-firms-flood-junk-debt-market-to-pay-themselves-credit-weekly] [MOBILE:https://www.bloomberg.com/news/articles/2025-11-22/pe-firms-flood-junk-debt-market-to-pay-themselves-credit-weekly]
+10. Portugal’s TAP Attracts Interest From Three European Airlines [URL:https://www.bloomberg.com/news/articles/2025-11-22/portugal-s-tap-attracts-interest-from-three-european-airlines] [MOBILE:https://www.bloomberg.com/news/articles/2025-11-22/portugal-s-tap-attracts-interest-from-three-european-airlines]
+
+business-insider | Business Insider
+1. BMW and Porsche have a China problem. They're not the only ones. [URL:http://www.businessinsider.com/bmw-porsche-china-sales-falling-byd-xpeng-2025-1] [MOBILE:http://www.businessinsider.com/bmw-porsche-china-sales-falling-byd-xpeng-2025-1]
+2. LA fires: Landlords are price gouging, says 'Selling Sunset' star [URL:http://www.businessinsider.com/la-fires-jason-oppenheim-landlords-price-gouging-selling-sunset-star-2025-1] [MOBILE:http://www.businessinsider.com/la-fires-jason-oppenheim-landlords-price-gouging-selling-sunset-star-2025-1]
+3. Blockchain giant Chainalysis acquires AI agent startup Alterya [URL:http://www.businessinsider.com/ai-agent-startup-alterya-acquired-by-chainalysis-2025-1] [MOBILE:http://www.businessinsider.com/ai-agent-startup-alterya-acquired-by-chainalysis-2025-1]
+4. Why investors shouldn't worry about stretched stock market valuations: BofA [URL:https://markets.businessinsider.com/news/stocks/stock-market-hits-extreme-valuations-get-used-to-it-outlook-2025-1] [MOBILE:https://markets.businessinsider.com/news/stocks/stock-market-hits-extreme-valuations-get-used-to-it-outlook-2025-1]
+5. Why middle managers are valuable to companies and their employees [URL:http://www.businessinsider.com/middle-managers-valuable-company-employee-success-growth-2025-1] [MOBILE:http://www.businessinsider.com/middle-managers-valuable-company-employee-success-growth-2025-1]
+6. People can bet on the Los Angeles wildfires. It's a sign of the times. [URL:http://www.businessinsider.com/california-los-angeles-palisades-fires-bets-gambling-wagers-polymarket-2025-1] [MOBILE:http://www.businessinsider.com/california-los-angeles-palisades-fires-bets-gambling-wagers-polymarket-2025-1]
+7. Blue Origin cancels rocket launch because of 'vehicle subsystem issue' [URL:http://www.businessinsider.com/blue-origin-cancels-rocket-launch-because-of-vehicle-subsystem-issue-2025-1] [MOBILE:http://www.businessinsider.com/blue-origin-cancels-rocket-launch-because-of-vehicle-subsystem-issue-2025-1]
+8. Mark Zuckerberg enters his next era as Trump takes office [URL:http://www.businessinsider.com/mark-zuckerberg-new-identity-trump-elon-musk-fact-check-dei-2025-1] [MOBILE:http://www.businessinsider.com/mark-zuckerberg-new-identity-trump-elon-musk-fact-check-dei-2025-1]
+9. Celebrities who lost homes in LA, Palisades fires: Full list [URL:http://www.businessinsider.com/la-wildfire-pacific-palisades-malibu-celebrities-neighborhood-a-listers-2025-1] [MOBILE:http://www.businessinsider.com/la-wildfire-pacific-palisades-malibu-celebrities-neighborhood-a-listers-2025-1]
+10. 5 do's and don'ts to land a job in the private-credit boom [URL:http://www.businessinsider.com/private-credit-career-pathways-junior-roles-senior-roles-2025-1] [MOBILE:http://www.businessinsider.com/private-credit-career-pathways-junior-roles-senior-roles-2025-1]
+
+fortune | Fortune
+1. Why a former SoftBank partner is tackling mid-career drop-off for working mothers [URL:https://fortune.com/2022/06/01/former-softbank-partner-tackling-mid-career-drop-off-for-working-mothers/] [MOBILE:https://fortune.com/2022/06/01/former-softbank-partner-tackling-mid-career-drop-off-for-working-mothers/]
+2. Unprofitable companies needed to be profitable yesterday [URL:https://fortune.com/2022/06/01/unprofitable-companies-needed-to-be-profitable-yesterday/] [MOBILE:https://fortune.com/2022/06/01/unprofitable-companies-needed-to-be-profitable-yesterday/]
+3. Elon Musk crows as German authorities start treating greenwashing as fraud [URL:https://fortune.com/2022/06/01/elon-musk-germany-esg-greenwashing-fraud-deutsche-bank-dws/] [MOBILE:https://fortune.com/2022/06/01/elon-musk-germany-esg-greenwashing-fraud-deutsche-bank-dws/]
+4. A new report shows how badly the Trump administration slashed the U.S.’s climate credentials [URL:https://fortune.com/2022/06/01/trump-us-climate-action-paris-accord-methane-yale-environmental-performance-index/] [MOBILE:https://fortune.com/2022/06/01/trump-us-climate-action-paris-accord-methane-yale-environmental-performance-index/]
+5. Buybacks vs dividends? In market downturns, the rules may change [URL:https://fortune.com/2022/06/01/buybacks-vs-dividends-stock-market-downturns-recession-cfo-daily-newsletter/] [MOBILE:https://fortune.com/2022/06/01/buybacks-vs-dividends-stock-market-downturns-recession-cfo-daily-newsletter/]
+6. Why Tinder wants to end the FDA’s discriminatory blood donor policy [URL:https://fortune.com/2022/06/01/tinder-fda-discrimination-blood-donor-policy-renate-nybor/] [MOBILE:https://fortune.com/2022/06/01/tinder-fda-discrimination-blood-donor-policy-renate-nybor/]
+7. The forgotten true story behind Memorial Day—and why it matters now more than ever [URL:https://fortune.com/2022/05/31/forgotten-true-story-behind-memorial-day-martyrs-of-the-race-course-why-it-matters-now/] [MOBILE:https://fortune.com/2022/05/31/forgotten-true-story-behind-memorial-day-martyrs-of-the-race-course-why-it-matters-now/]
+8. 4 vital steps that U.S. CEOs must take in the economic battle with China [URL:https://fortune.com/2022/05/31/china-us-trade-competition-decoupling-supply-chains-intellectual-property/] [MOBILE:https://fortune.com/2022/05/31/china-us-trade-competition-decoupling-supply-chains-intellectual-property/]
+9. The next Silicon Valley may not exist. Here’s what smaller hubs can do to attract VC dollars [URL:https://fortune.com/2022/05/27/next-silicon-valley-exist-smaller-hubs-attract-vc-dollars-startups-entrepreneurs-ey-jeff-grabow/] [MOBILE:https://fortune.com/2022/05/27/next-silicon-valley-exist-smaller-hubs-attract-vc-dollars-startups-entrepreneurs-ey-jeff-grabow/]
+10. Boris Johnson has survived Partygate–and he’s coming for Northern Ireland [URL:https://fortune.com/2022/05/27/boris-johnson-survived-partygate-uk-politics-leadership-international-northern-ireland-international-marina-purkiss/] [MOBILE:https://fortune.com/2022/05/27/boris-johnson-survived-partygate-uk-politics-leadership-international-northern-ireland-international-marina-purkiss/]
+
+the-wall-street-journal | Wall Street Journal
+1. 31 Unique Gifts for Men Who Have Everything [URL:https://www.wsj.com/buyside/gifts/gift-guides/gifts-for-men-who-have-everything?mod=wsj_hp_buyside_pos1] [MOBILE:https://www.wsj.com/buyside/gifts/gift-guides/gifts-for-men-who-have-everything?mod=wsj_hp_buyside_pos1]
+2. The Best Artificial Christmas Trees for a Festive (and Easier) Holiday [URL:https://www.wsj.com/buyside/home-products-decor/living-room/best-artificial-christmas-tree?mod=wsj_hp_buyside_pos3] [MOBILE:https://www.wsj.com/buyside/home-products-decor/living-room/best-artificial-christmas-tree?mod=wsj_hp_buyside_pos3]
+3. Affordable Pet Insurance Options: Balancing Cost and Coverage [URL:https://www.wsj.com/buyside/personal-finance/pet-insurance/cheap-pet-insurance?mod=wsj_hp_buyside_pos2] [MOBILE:https://www.wsj.com/buyside/personal-finance/pet-insurance/cheap-pet-insurance?mod=wsj_hp_buyside_pos2]
+
+==== Failed IDs ====
+reddit-worldnews
+reddit-news
+reddit-technology
+reddit-programming
+reddit-science
+reddit-artificial
+reddit-machinelearning
+reddit-localllama
+reddit-finance
+reddit-investing
+reddit-stocks
+reddit-wallstreetbets
+reuters
