@@ -134,6 +134,12 @@ def load_config():
     # API Keys configuration (environment variables take priority)
     api_config = config_data.get("api", {})
     config["NEWSAPI_KEY"] = os.environ.get("NEWSAPI_KEY", "").strip() or api_config.get("newsapi_key", "")
+    
+    # Debug: Check if NEWSAPI_KEY is loaded
+    if config["NEWSAPI_KEY"]:
+        print(f"✓ NEWSAPI_KEY loaded (length: {len(config['NEWSAPI_KEY'])} chars)")
+    else:
+        print("✗ NEWSAPI_KEY not found in environment or config file")
 
     # Notification channel configuration (environment variables take priority)
     notification = config_data.get("notification", {})
