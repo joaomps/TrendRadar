@@ -55,7 +55,7 @@ class EnglishPlatformsAdapter:
 
     def fetch_from_reddit(self, subreddit: str) -> Dict:
         """
-        Fetch trending posts from Reddit using RSS feeds (no authentication needed)
+        Fetch trending posts from Reddit using the JSON API (unauthenticated)
         
         Args:
             subreddit: Subreddit name (e.g., 'worldnews', 'technology')
@@ -63,12 +63,13 @@ class EnglishPlatformsAdapter:
         Returns:
             Dict with format: {'id': str, 'name': str, 'items': List[Dict]}
         """
-        # Use RSS feed which doesn't require authentication
-        url = f"https://www.reddit.com/r/{subreddit}/.rss"
+        # Use the JSON endpoint which provides more metadata than RSS
+        url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=50"
         
-        # Simple headers for RSS
+        # Headers are crucial for Reddit to avoid 429s
         headers = {
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'application/json'
         }
 
         try:
@@ -78,43 +79,40 @@ class EnglishPlatformsAdapter:
                 proxies=self.proxies,
                 timeout=15
             )
-            response.raise_for_status()
             
-            # Parse RSS XML
-            import xml.etree.ElementTree as ET
-            root = ET.fromstring(response.content)
+            # Handle specific Reddit errors
+            if response.status_code == 429:
+                print(f"Rate limited by Reddit for r/{subreddit}. Waiting and retrying...")
+                time.sleep(5)
+                response = requests.get(url, headers=headers, proxies=self.proxies, timeout=15)
+            
+            response.raise_for_status()
+            data = response.json()
             
             items = []
-            # RSS uses different namespaces
-            for idx, entry in enumerate(root.findall('.//{http://www.w3.org/2005/Atom}entry'), 1):
-                try:
-                    title_elem = entry.find('{http://www.w3.org/2005/Atom}title')
-                    link_elem = entry.find('{http://www.w3.org/2005/Atom}link')
-                    updated_elem = entry.find('{http://www.w3.org/2005/Atom}updated')
+            if 'data' in data and 'children' in data['data']:
+                for idx, child in enumerate(data['data']['children'], 1):
+                    post = child['data']
                     
-                    if title_elem is not None and link_elem is not None:
-                        title = title_elem.text
-                        link = link_elem.get('href', '')
+                    # Skip stickied posts
+                    if post.get('stickied', False):
+                        continue
                         
-                        # Skip stickied posts (usually have [Megathread] or similar in title)
-                        if any(skip in title.lower() for skip in ['[megathread]', '[meta]', 'stickied']):
-                            continue
-                        
-                        items.append({
-                            'rank': idx,
-                            'title': title,
-                            'url': link,
-                            'mobileUrl': link,
-                            'score': 0,  # RSS doesn't provide scores
-                            'comments': 0,  # RSS doesn't provide comment counts
-                            'created': 0
-                        })
-                        
-                        if len(items) >= 50:  # Limit to 50 items
-                            break
-                except Exception as e:
-                    print(f"Error parsing RSS entry: {e}")
-                    continue
+                    items.append({
+                        'rank': idx,
+                        'title': post.get('title', ''),
+                        'url': post.get('url', ''),
+                        'mobileUrl': post.get('url', ''),
+                        'score': post.get('score', 0),
+                        'comments': post.get('num_comments', 0),
+                        'created': post.get('created_utc', 0),
+                        'author': post.get('author', 'unknown'),
+                        'is_video': post.get('is_video', False),
+                        'is_self': post.get('is_self', False)
+                    })
+                    
+                    if len(items) >= 50:
+                        break
 
             return {
                 'id': f"reddit-{subreddit}",
@@ -124,6 +122,7 @@ class EnglishPlatformsAdapter:
 
         except Exception as e:
             print(f"Error fetching from Reddit r/{subreddit}: {e}")
+            # Fallback to empty list or basic error handling
             return {
                 'id': f"reddit-{subreddit}",
                 'name': f"Reddit r/{subreddit}",
