@@ -94,15 +94,15 @@ platforms:
   # ===== FREE ENGLISH SOURCES (No API key needed) =====
 
   # Reddit - Various Communities
-  # - id: "reddit-worldnews"
-  #   name: "Reddit World News"
-  #   api: "reddit"
-  #   subreddit: "worldnews"
+  - id: "reddit-worldnews"
+    name: "Reddit World News"
+    api: "reddit"
+    subreddit: "worldnews"
 
-  # - id: "reddit-news"
-  #   name: "Reddit News"
-  #   api: "reddit"
-  #   subreddit: "news"
+  - id: "reddit-news"
+    name: "Reddit News"
+    api: "reddit"
+    subreddit: "news"
 
   # - id: "reddit-technology"
   #   name: "Reddit Technology"
@@ -136,25 +136,25 @@ platforms:
   #   subreddit: "LocalLLaMA"
 
   # Finance & Investing
-  # - id: "reddit-finance"
-  #   name: "Reddit Finance"
-  #   api: "reddit"
-  #   subreddit: "finance"
+  - id: "reddit-finance"
+    name: "Reddit Finance"
+    api: "reddit"
+    subreddit: "finance"
 
-  # - id: "reddit-investing"
-  #   name: "Reddit Investing"
-  #   api: "reddit"
-  #   subreddit: "investing"
+  - id: "reddit-investing"
+    name: "Reddit Investing"
+    api: "reddit"
+    subreddit: "investing"
 
   # - id: "reddit-stocks"
   #   name: "Reddit Stocks"
   #   api: "reddit"
   #   subreddit: "stocks"
 
-  # - id: "reddit-wallstreetbets"
-  #   name: "Reddit WallStreetBets"
-  #   api: "reddit"
-  #   subreddit: "wallstreetbets"
+  - id: "reddit-wallstreetbets"
+    name: "Reddit WallStreetBets"
+    api: "reddit"
+    subreddit: "wallstreetbets"
 
   # Hacker News - Tech Trends
   - id: "hackernews"
