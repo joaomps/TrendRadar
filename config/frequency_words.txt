@@ -1,15 +1,6 @@
-# Pang Donglai (Retail chain)
-Pang Donglai
-Yu Donglai
-
 # DeepSeek (AI company)
 DeepSeek
 Liang Wenfeng
-
-# Huawei
-Huawei
-HarmonyOS
-Ren Zhengfei
 
 # BYD (Electric vehicle company)
 BYD
@@ -17,45 +8,6 @@ Wang Chuanfu
 
 # DJI (Drone company)
 DJI
-
-# Unitree (Robotics)
-Unitree
-Wang Xingxing
-
-# Zhiyuan (Robotics/AI)
-Zhiyuan
-Lingxi
-Zhihui Jun
-Peng Zhihui
-
-# Black Myth (Game)
-Black Myth
-Wukong
-Feng Ji
-
-# Infinity Nikki
-Infinity Nikki
-Liang Qiwei
-
-# Ne Zha (Animation)
-Ne Zha
-Jiaozi
-Yang Yu
-!car
-!restaurant
-
-# Sci-Fi Content
-Three-Body Problem
-The Wandering Earth
-Liu Cixin
-Guo Fan
-
-# Shen Ao (Director)
-Shen Ao
-
-# JD.com
-JD.com
-Liu Qiangdong
 
 # ByteDance
 ByteDance
@@ -116,6 +68,7 @@ Claude
 ChatGPT
 GPT-4
 GPT-5
+GPT
 Gemini
 DeepMind
 Llama
