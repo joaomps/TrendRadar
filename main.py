@@ -440,7 +440,78 @@ class PushRecordManager:
         return result
 
 
-# === Data Fetching ===
+class DeduplicationManager:
+    """Manage deduplication state with rolling window"""
+
+    def __init__(self, retention_hours: int = 48):
+        self.retention_hours = retention_hours
+        self.state_file = Path("output") / ".deduplication_state.json"
+        self.state = self._load_state()
+        self.current_session_new = set()
+
+    def _load_state(self) -> Dict:
+        """Load state from file"""
+        if not self.state_file.exists():
+            return {"history": {}}
+
+        try:
+            with open(self.state_file, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"Failed to load deduplication state: {e}")
+            return {"history": {}}
+
+    def is_seen(self, source_id: str, title: str) -> bool:
+        """Check if title has been seen"""
+        # Check history
+        history = self.state.get("history", {})
+        if source_id in history:
+            if title in history[source_id]:
+                return True
+        return False
+
+    def add(self, source_id: str, title: str):
+        """Add title to current session"""
+        self.current_session_new.add((source_id, title))
+        
+        # Update in-memory state immediately for this session
+        history = self.state.setdefault("history", {})
+        source_history = history.setdefault(source_id, {})
+        source_history[title] = get_utc_time().timestamp()
+
+    def save(self):
+        """Save state to file and prune old entries"""
+        now = get_utc_time().timestamp()
+        retention_seconds = self.retention_hours * 3600
+        cutoff_time = now - retention_seconds
+
+        history = self.state.get("history", {})
+        new_history = {}
+        
+        total_entries = 0
+        removed_entries = 0
+
+        for source_id, titles in history.items():
+            new_titles = {}
+            for title, timestamp in titles.items():
+                if timestamp > cutoff_time:
+                    new_titles[title] = timestamp
+                    total_entries += 1
+                else:
+                    removed_entries += 1
+            
+            if new_titles:
+                new_history[source_id] = new_titles
+
+        self.state["history"] = new_history
+        
+        try:
+            with open(self.state_file, "w", encoding="utf-8") as f:
+                json.dump(self.state, f, ensure_ascii=False)
+            print(f"Deduplication state saved. Total entries: {total_entries}, Pruned: {removed_entries}")
+        except Exception as e:
+            print(f"Failed to save deduplication state: {e}")
+
 class DataFetcher:
     """Data fetcher with multi-platform support"""
 
@@ -898,8 +969,11 @@ def process_source_data(
                     title_info[source_id][title]["mobileUrl"] = mobile_url
 
 
-def detect_latest_new_titles(current_platform_ids: Optional[List[str]] = None) -> Dict:
-    """Detect new titles from the latest batch, with optional filtering by current monitored platforms"""
+def detect_latest_new_titles(
+    current_platform_ids: Optional[List[str]] = None,
+    dedup_manager: Optional[DeduplicationManager] = None
+) -> Dict:
+    """Detect new titles from the latest batch using DeduplicationManager"""
     date_folder = format_date_folder()
     txt_dir = Path("output") / date_folder / "txt"
 
@@ -907,7 +981,7 @@ def detect_latest_new_titles(current_platform_ids: Optional[List[str]] = None) -
         return {}
 
     files = sorted([f for f in txt_dir.iterdir() if f.suffix == ".txt"])
-    if len(files) < 2:
+    if not files:
         return {}
 
     # Parse latest file
@@ -922,35 +996,27 @@ def detect_latest_new_titles(current_platform_ids: Optional[List[str]] = None) -
                 filtered_latest_titles[source_id] = title_data
         latest_titles = filtered_latest_titles
 
-    # Aggregate historical titles (filtered by platform)
-    historical_titles = {}
-    for file_path in files[:-1]:
-        historical_data, _ = parse_file_titles(file_path)
+    if not dedup_manager:
+        # Fallback to old logic if no manager provided (shouldn't happen in new flow)
+        print("Warning: No DeduplicationManager provided, falling back to daily file comparison")
+        if len(files) < 2:
+            return latest_titles # All are new if it's the first file and no manager
+        
+        # ... (Old logic omitted for brevity, but could be kept as fallback)
+        # For now, let's just return empty if no manager and >1 file to be safe, 
+        # or implement a simple fallback. 
+        # Given the instruction is to REPLACE, we will assume manager is always passed.
+        return {}
 
-        # Filter historical data
-        if current_platform_ids is not None:
-            filtered_historical_data = {}
-            for source_id, title_data in historical_data.items():
-                if source_id in current_platform_ids:
-                    filtered_historical_data[source_id] = title_data
-            historical_data = filtered_historical_data
-
-        for source_id, titles_data in historical_data.items():
-            if source_id not in historical_titles:
-                historical_titles[source_id] = set()
-            for title in titles_data.keys():
-                historical_titles[source_id].add(title)
-
-    # 找出NewTitle
     new_titles = {}
-    for source_id, latest_source_titles in latest_titles.items():
-        historical_set = historical_titles.get(source_id, set())
+    
+    for source_id, source_titles in latest_titles.items():
         source_new_titles = {}
-
-        for title, title_data in latest_source_titles.items():
-            if title not in historical_set:
+        for title, title_data in source_titles.items():
+            if not dedup_manager.is_seen(source_id, title):
                 source_new_titles[title] = title_data
-
+                dedup_manager.add(source_id, title)
+        
         if source_new_titles:
             new_titles[source_id] = source_new_titles
 
@@ -4399,6 +4465,8 @@ class NewsAnalyzer:
 
         if self.is_github_actions:
             self._check_version_update()
+            
+        self.dedup_manager = DeduplicationManager(retention_hours=48)
 
     def _detect_docker_environment(self) -> bool:
         """Detect if running in Docker container"""
@@ -4504,7 +4572,7 @@ class NewsAnalyzer:
             total_titles = sum(len(titles) for titles in all_results.values())
             print(f"Read {total_titles} news items (filtered by current monitored platforms)")
 
-            new_titles = detect_latest_new_titles(current_platform_ids)
+            new_titles = detect_latest_new_titles(current_platform_ids, self.dedup_manager)
             word_groups, filter_words = load_frequency_words()
 
             return (
@@ -4749,7 +4817,7 @@ class NewsAnalyzer:
         # Get current monitored platform ID list
         current_platform_ids = [platform["id"] for platform in CONFIG["PLATFORMS"]]
 
-        new_titles = detect_latest_new_titles(current_platform_ids)
+        new_titles = detect_latest_new_titles(current_platform_ids, self.dedup_manager)
         time_info = Path(save_titles_to_file(results, id_to_name, failed_ids)).stem
         word_groups, filter_words = load_frequency_words()
 
@@ -4868,6 +4936,10 @@ class NewsAnalyzer:
             results, id_to_name, failed_ids = self._crawl_data()
 
             self._execute_mode_strategy(mode_strategy, results, id_to_name, failed_ids)
+            
+            # Save deduplication state
+            if self.dedup_manager:
+                self.dedup_manager.save()
 
         except Exception as e:
             print(f"分析流程执行出错: {e}")
