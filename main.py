@@ -443,7 +443,7 @@ class PushRecordManager:
 class DeduplicationManager:
     """Manage deduplication state with rolling window"""
 
-    def __init__(self, retention_hours: int = 48):
+    def __init__(self, retention_hours: int = 72):
         self.retention_hours = retention_hours
         self.state_file = Path("output") / ".deduplication_state.json"
         self.state = self._load_state()
@@ -473,8 +473,14 @@ class DeduplicationManager:
     def add(self, source_id: str, title: str):
         """Add title to current session"""
         self.current_session_new.add((source_id, title))
-        
+
         # Update in-memory state immediately for this session
+        history = self.state.setdefault("history", {})
+        source_history = history.setdefault(source_id, {})
+        source_history[title] = get_utc_time().timestamp()
+
+    def touch(self, source_id: str, title: str):
+        """Update timestamp for existing title to extend its retention window"""
         history = self.state.setdefault("history", {})
         source_history = history.setdefault(source_id, {})
         source_history[title] = get_utc_time().timestamp()
@@ -1009,14 +1015,20 @@ def detect_latest_new_titles(
         return {}
 
     new_titles = {}
-    
+
     for source_id, source_titles in latest_titles.items():
         source_new_titles = {}
         for title, title_data in source_titles.items():
-            if not dedup_manager.is_seen(source_id, title):
-                source_new_titles[title] = title_data
+            is_new = not dedup_manager.is_seen(source_id, title)
+
+            if is_new:
+                # New title - add to dedup state and mark as new
                 dedup_manager.add(source_id, title)
-        
+                source_new_titles[title] = title_data
+            else:
+                # Seen before - just refresh timestamp to extend retention window
+                dedup_manager.touch(source_id, title)
+
         if source_new_titles:
             new_titles[source_id] = source_new_titles
 
@@ -4466,7 +4478,7 @@ class NewsAnalyzer:
         if self.is_github_actions:
             self._check_version_update()
             
-        self.dedup_manager = DeduplicationManager(retention_hours=48)
+        self.dedup_manager = DeduplicationManager(retention_hours=72)
 
     def _detect_docker_environment(self) -> bool:
         """Detect if running in Docker container"""
